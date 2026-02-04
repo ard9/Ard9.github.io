@@ -1,446 +1,1819 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Armin Rahimi Darehbagh - Senior Speech AI & Machine Learning Engineer specializing in ASR, TTS, and Wake Word Detection systems">
+    <meta name="author" content="Armin Rahimi Darehbagh">
+    <meta name="keywords" content="Armin Rahimi Darehbagh, Speech AI, Machine Learning, ASR, TTS, Wake Word Detection, Persian NLP">
+    <meta name="google-site-verification" content="jKY7V-_SC1GD7D9of48opj5sUWVJanQ3SG28jzXovuk">
+    
+    <title>Armin Rahimi Darehbagh | Speech AI & ML Engineer</title>
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #151b3d;
+            --bg-card: #1a2142;
+            --accent-1: #00d4ff;
+            --accent-2: #7c3aed;
+            --accent-3: #f59e0b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --gradient-1: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --shadow-sm: 0 2px 8px rgba(0, 212, 255, 0.1);
+            --shadow-md: 0 8px 24px rgba(0, 212, 255, 0.15);
+            --shadow-lg: 0 16px 48px rgba(0, 212, 255, 0.2);
+        }
 
-<html>
-	<head>
-		<title>Armin Rahimi Darehbagh website</title>
-		<meta charset="utf-8" />
-		<meta name="description" content="This is the personal page of Armin Rahimi Darehbagh"/>
-		<meta name="author" 	 content="Armin Rahimi Darehbagh (he/His/His)">
-		<meta name="viewport"    content="width=device-width, initial-scale=1" />
-		<meta name="keywords"    content="Armin Rahimi Darehbagh"> 
-		<!-- HTML tag From Google Search Console -->
-		<meta name="google-site-verification" content="jKY7V-_SC1GD7D9of48opj5sUWVJanQ3SG28jzXovuk" />
-		
-		<script src="assets/js/ie/html5shiv.js"></script>
-		<link href="favicon.ico" rel="icon" type="image/x-icon" /> 
-		<link rel="stylesheet"   href="assets/css/main.css" />
-		<link rel="stylesheet"   href="assets/css/ie8.css" />		
-		<link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<style>
-		        body {
-		            font-family: 'Arial', sans-serif;
-		            line-height: 1.6;
-		            background-color: #f4f4f4;
-		            color: #333;
-		        }
-		
-		        .container {
-		            max-width: 800px;
-		            margin: 0 auto;
-		            padding: 20px;
-		        }
-		
-		        h2 {
-		            color: #333;
-		        }
-		
-		        p {
-		            text-align: justify;
-		            margin-bottom: 10px; /* Added margin between paragraphs */
-		        }
-		    </style>
-	</head>
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-	
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5CXZBZYHNK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        /* Background Animation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  gtag('config', 'G-5CXZBZYHNK');
-</script>
+        /* Animated gradient orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
 
+        .orb-1 {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-1);
+            animation-delay: 0s;
+        }
 
+        .orb-2 {
+            bottom: 20%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: var(--accent-2);
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            background: var(--accent-3);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 1000;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        main {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 5% 4rem;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            margin-bottom: 8rem;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeInLeft 0.8s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--accent-1);
+            border-radius: 50px;
+            color: var(--accent-1);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(0, 212, 255, 0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Image */
+        .hero-image {
+            flex: 0 0 400px;
+            animation: fadeInRight 0.8s ease-out;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .profile-card {
+            position: relative;
+            border-radius: 30px;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 30px 30px 0 0;
+        }
+
+        .profile-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 20px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            color: var(--text-primary);
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
+
+        /* Section Styles */
+        section {
+            margin-bottom: 8rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid var(--accent-2);
+            border-radius: 50px;
+            color: var(--accent-2);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-1) 0%, var(--accent-2) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.6rem;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-1);
+            border: 4px solid var(--bg-primary);
+            border-radius: 50%;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .timeline-date {
+            color: var(--accent-1);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .timeline-list li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.7rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .timeline-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-1);
+            font-weight: 700;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .skill-category-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-category-icon {
+            font-size: 1.5rem;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .skill-item {
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: var(--accent-1);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-card:hover::after {
+            opacity: 0.05;
+        }
+
+        .project-header {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-2);
+            border-radius: 15px;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .project-body {
+            padding: 2rem;
+        }
+
+        .project-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* Education & Honors */
+        .edu-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .edu-card {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .edu-card:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .edu-logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .edu-logo img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .edu-content {
+            flex: 1;
+        }
+
+        .edu-degree {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .edu-school {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-date {
+            color: var(--accent-1);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .edu-details {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .edu-gpa {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            color: var(--accent-1);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            font-size: 1.8rem;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-value {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .contact-value a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent-1);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-content {
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .hero-image {
+                flex: 0 0 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                padding: 2rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            main {
+                padding: 6rem 5% 3rem;
+            }
+
+            .hero {
+                min-height: auto;
+                margin-bottom: 5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero-image {
+                flex: 0 0 300px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cards-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -2.6rem;
+            }
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
 <body>
+    <!-- Animated Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-	<section id="header">
-		<header>
-			<span class="image avatar"><img src="image/profile7.jpg" alt="" /></span>
-			<h1 id="logo" style="font-size:190%"><br/>Armin Rahimi Darehbagh<br/></a></h1>
-			<p >Research Assistant<br/>University of Tehran</p>
-		</header>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">ARD.AI</div>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-		<nav id="nav">
-			<ul>
-				<li style="font-size:82%"><a href="#AboutMe">About Me</a></li>
-				<li style="font-size:82%"><a href="#education">Education</a></li>
-				<li style="font-size:82%"><a href="#teaching">TA Experience</a></li>
-				<!-- <li style="font-size:82%"><a href="#Publications">Publications</a></li> -->
-				<li style="font-size:82%"><a href="#Working Papers">Articles</a></li> 
-				<li style="font-size:82%"><a href="#research">Research Experience</a></li>
-				<li style="font-size:82%"><a href="#skills">Skills</a></li>
-				<li style="font-size:82%"><a href="#Languages">Languages</a></li>
-				<li style="font-size:82%"><a href="#honors">Honors</a></li>
-				<!--<li style="font-size:82%"><a href="#contact">Contact</a></li>-->
-			</ul>
-		</nav>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-label">🚀 SPEECH AI ENGINEER</span>
+                <h1>Armin Rahimi<br>Darehbagh</h1>
+                <h2>Senior AI & Machine Learning Engineer</h2>
+                <p class="hero-description">
+                    Specializing in Speech AI systems including ASR, TTS, and Wake Word Detection. 
+                    Expert in building large-scale speech datasets and deploying production-grade AI solutions.
+                </p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i>
+                        Get In Touch
+                    </a>
+                    <a href="Resume_ArminRahimiDarehbagh_2023_01_12.pdf" download class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="profile-card">
+                    <img src="image/profile7.jpg" alt="Armin Rahimi Darehbagh" class="profile-image">
+                    <div class="profile-info">
+                        <h3>Armin Rahimi</h3>
+                        <p>Tehran, Iran</p>
+                        
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span class="stat-value">20K+</span>
+                                <span class="stat-label">Hours of Speech Data</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">3+</span>
+                                <span class="stat-label">Years Experience</span>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/armin-rahimi-darehbagh/" class="social-link" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://github.com/ard9" class="social-link" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="mailto:rahiimii.ai@gmail.com" class="social-link" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://join.skype.com/invite/lX84wYTImor4" class="social-link" aria-label="Skype">
+                                <i class="fab fa-skype"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-		<footer>
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/armin-rahimi-darehbagh/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
-				<li><a href="https://join.skype.com/invite/lX84wYTImor4" class="icon fa-skype"><span class="label">Skype</span></a></li>
-				<li><a href="https://github.com/ard9" class="icon fa-github"><span class="label">Github</span></a></li>
-				<li><a href="mailto:Rahiimii.ai@gmail.com" class="icon fa-envelope"><span class="label">Email</span></a></li>
-				<li><a href="Resume_ArminRahimiDarehbagh_2023_01_12.pdf" download"><span class="label">CV</span></a></li>
-				<!--  <li><a href="https://scholar.google.com/citations?" class="fas fa-graduation-cap"><span class="label">Google Scholar</span></a></li> -->
-			</ul>
-		</footer>
+        <!-- About Section -->
+        <section id="about" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">WHO I AM</span>
+                <h2 class="section-title">About Me</h2>
+                <p class="section-description">
+                    Passionate AI engineer with deep expertise in speech processing, machine learning, 
+                    and building production-grade AI systems for real-world applications.
+                </p>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3 class="card-title">Mission-Driven</h3>
+                    <p class="card-description">
+                        Dedicated to advancing Persian language technology and making AI accessible 
+                        through innovative speech processing solutions.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🥋</div>
+                    <h3 class="card-title">Disciplined & Focused</h3>
+                    <p class="card-description">
+                        10 years of martial arts background with national and provincial titles. 
+                        This discipline translates into my perfectionist approach to AI engineering.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🎸</div>
+                    <h3 class="card-title">Creative Thinker</h3>
+                    <p class="card-description">
+                        Music enthusiast and guitarist. The creativity from music enriches my 
+                        problem-solving approach in AI development.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-	</section>
-	<!-- img align="right" style="padding-bottom: 2em;display: block; height: 100%; width: 70em; background-position: top right; background-repeat: no-repeat;background-size: cover; content: ''; " src="image/Header.jpg" alt="" /-->
-	
-	<!-- Wrapper -->
-	<div id="wrapper">
-		
+        <!-- Experience Section -->
+        <section id="experience" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">CAREER PATH</span>
+                <h2 class="section-title">Professional Experience</h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 — Present</div>
+                    <h3 class="timeline-title">Senior Speech AI Engineer</h3>
+                    <div class="timeline-company">Private AI Company (NDA) • Tehran, Iran</div>
+                    <p class="timeline-description">
+                        Leading the development of production-grade speech AI systems for Persian language processing.
+                    </p>
+                    <ul class="timeline-list">
+                        <li>Built and deployed ASR and TTS services for web and mobile applications</li>
+                        <li>Collected, transcribed, and processed 20,000+ hours of Persian speech data</li>
+                        <li>Designed and trained wake word detection models for Zigap, deployed in mobile apps</li>
+                        <li>Developed 5,000+ speaker dataset for wake word detection systems</li>
+                        <li>Implemented real-time streaming pipelines optimized for GPU servers (H100, H200)</li>
+                        <li>Deployed and maintained internal social networking platform with gamification features</li>
+                        <li>Built RAG systems and deployed open-source LLMs on H100/H200 servers</li>
+                    </ul>
+                    <div class="card-tags">
+                        <span class="tag">ASR</span>
+                        <span class="tag">TTS</span>
+                        <span class="tag">Wake Word Detection</span>
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">GPU Optimization</span>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2015 — 2018</div>
+                    <h3 class="timeline-title">Game Server Manager & Developer</h3>
+                    <div class="timeline-company">Self-Managed / Remote</div>
+                    <p class="timeline-description">
+                        Managed and developed online game servers with custom gameplay features and infrastructure.
+                    </p>
+                    <ul class="timeline-list">
+                        <li>Managed online game servers for GTA (SAMP, MTA) and Counter-Strike</li>
+                        <li>Developed server-side logic and custom gameplay features</li>
+                        <li>Built user infrastructure and management systems</li>
+                        <li>Handled player community and technical support</li>
+                    </ul>
+                    <div class="card-tags">
+                        <span class="tag">PHP</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">Lua</span>
+                        <span class="tag">Pawn</span>
+                        <span class="tag">C++</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-		<!-- Main -->
-		<div id="main">
+        <!-- Projects Section -->
+        <section id="projects" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">PORTFOLIO</span>
+                <h2 class="section-title">Key Projects</h2>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🎙️</div>
+                        <h3 class="project-title">Large-Scale Persian Speech Dataset</h3>
+                        <p class="project-subtitle">Industry's Largest Persian Speech Collection</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Collected, cleaned, and transcribed over 20,000 hours of Persian speech data 
+                            for training ASR, TTS, and wake word detection models. This represents one of 
+                            the largest Persian speech datasets in existence.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tag">Data Collection</span>
+                            <span class="tag">Audio Processing</span>
+                            <span class="tag">Transcription</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">⚡</div>
+                        <h3 class="project-title">High-Performance ASR Service</h3>
+                        <p class="project-subtitle">Real-time & Batch Processing</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Designed and deployed a production-grade speech-to-text service with 
+                            low latency real-time streaming and efficient batch processing capabilities, 
+                            optimized for GPU acceleration.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">Streaming</span>
+                            <span class="tag">GPU Optimization</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🔊</div>
+                        <h3 class="project-title">Real-Time TTS Engine</h3>
+                        <p class="project-subtitle">Low-latency Text-to-Speech</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Developed a low-latency TTS system supporting Persian and English with 
+                            code-switching capabilities, designed for real-time applications and 
+                            high-quality voice synthesis.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tag">TTS</span>
+                            <span class="tag">Neural Networks</span>
+                            <span class="tag">Real-time Processing</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🎯</div>
+                        <h3 class="project-title">Wake Word Detection for Zigap</h3>
+                        <p class="project-subtitle">Mobile-Optimized Voice Activation</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Built and deployed wake word detection models for Zigap mobile application. 
+                            Collected data from 500 speakers as part of a 5,000-speaker Persian speech dataset 
+                            for training robust activation models.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tag">Wake Word</span>
+                            <span class="tag">Mobile AI</span>
+                            <span class="tag">Dataset Creation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🏥</div>
+                        <h3 class="project-title">Knee Arthritis Detection</h3>
+                        <p class="project-subtitle">Medical AI Application</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Implemented machine learning models for predicting arthritis severity from 
+                            medical imaging datasets, demonstrating expertise in healthcare AI applications.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tag">Medical AI</span>
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">Classification</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-icon">🤖</div>
+                        <h3 class="project-title">Open-Source LLM Deployment</h3>
+                        <p class="project-subtitle">RAG Systems & Model Serving</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Deployed and optimized open-source large language models on H100/H200 GPU servers. 
+                            Built RAG (Retrieval-Augmented Generation) systems for enhanced information retrieval.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tag">LLMs</span>
+                            <span class="tag">RAG</span>
+                            <span class="tag">H100/H200</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-			<!-- One -->
-			    <section id="AboutMe">
-			        <div class="container">
-			            <header class="major">
-			                <h2>About Me</h2>
-			            </header>
-			            <p> Hello there! 👋 I'm Armin Rahimi DarehBagh</p>
-			            <p>- 🎂 Born on May 11, 1993, in Sanandaj, Kurdistan, Iran.</p>
-			            <p>- 🥋 With a professional background in martial arts spanning 10 years, I hold various national and provincial titles.</p>
-			            <p>- 🎓 I pursued electronics during high school and continued my academic journey in electronics and control and instrumentation during my undergraduate studies.</p>
-			            <p>- 🎓 Currently pursuing a Master's in Information Technology in Medical Engineering.</p>
-			            <p>- 🎸 Passionate about music, I actively engage in playing the guitar in my leisure time.</p>
-			            <p>- 💻 Intrigued by artificial intelligence and coding, I have a keen interest in AI and programming.</p>
-			            <p>- 🏋️ Whether it's sports or music, I find joy in staying active during my free time.</p>
-			            <p>- 🎧 A dedicated music enthusiast, I enjoy listening to a diverse range of genres.</p>
-			            <p>- 🚀 A perfectionist by nature, I strive for excellence and believe in giving my best effort in everything I do.</p>
-			        </div>
-			    </section>
+        <!-- Skills Section -->
+        <section id="skills" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">EXPERTISE</span>
+                <h2 class="section-title">Technical Skills</h2>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🎤</span>
+                        Speech AI
+                    </h3>
+                    <div class="skill-items">
+                        <span class="skill-item">ASR</span>
+                        <span class="skill-item">TTS</span>
+                        <span class="skill-item">Wake Word Detection</span>
+                        <span class="skill-item">Speech Recognition</span>
+                        <span class="skill-item">Voice Synthesis</span>
+                        <span class="skill-item">Audio Processing</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🧠</span>
+                        Machine Learning
+                    </h3>
+                    <div class="skill-items">
+                        <span class="skill-item">PyTorch</span>
+                        <span class="skill-item">TensorFlow</span>
+                        <span class="skill-item">Keras</span>
+                        <span class="skill-item">Scikit-learn</span>
+                        <span class="skill-item">HuggingFace</span>
+                        <span class="skill-item">Transformers</span>
+                        <span class="skill-item">LLMs</span>
+                        <span class="skill-item">RAG Systems</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🏗️</span>
+                        Model Architectures
+                    </h3>
+                    <div class="skill-items">
+                        <span class="skill-item">LSTM</span>
+                        <span class="skill-item">RNN</span>
+                        <span class="skill-item">GRU</span>
+                        <span class="skill-item">CRNN</span>
+                        <span class="skill-item">CNN</span>
+                        <span class="skill-item">CLSTM</span>
+                        <span class="skill-item">MLP</span>
+                        <span class="skill-item">Transformer</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">💻</span>
+                        Programming
+                    </h3>
+                    <div class="skill-items">
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">C++</span>
+                        <span class="skill-item">Java</span>
+                        <span class="skill-item">PHP</span>
+                        <span class="skill-item">HTML/CSS</span>
+                        <span class="skill-item">Lua</span>
+                        <span class="skill-item">Pawn</span>
+                        <span class="skill-item">R</span>
+                        <span class="skill-item">Matlab</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">🖥️</span>
+                        Systems & Infrastructure
+                    </h3>
+                    <div class="skill-items">
+                        <span class="skill-item">Linux Server Admin</span>
+                        <span class="skill-item">GPU Deployment</span>
+                        <span class="skill-item">H100/H200</span>
+                        <span class="skill-item">Multi-GPU Training</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">Git/GitHub</span>
+                        <span class="skill-item">CCNA</span>
+                        <span class="skill-item">CCNP</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="skill-category-title">
+                        <span class="skill-category-icon">📊</span>
+                        Data & Tools
+                    </h3>
+                    <div class="skill-items">
+                        <span class="skill-item">SQL</span>
+                        <span class="skill-item">Power BI</span>
+                        <span class="skill-item">Web Scraping</span>
+                        <span class="skill-item">Selenium</span>
+                        <span class="skill-item">Beautiful Soup</span>
+                        <span class="skill-item">SARIMAX</span>
+                        <span class="skill-item">AVR Microcontrollers</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- Education Section -->
+        <section id="education" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">ACADEMIC BACKGROUND</span>
+                <h2 class="section-title">Education</h2>
+            </div>
+            
+            <div class="edu-grid">
+                <div class="edu-card">
+                    <div class="edu-logo">
+                        <img src="image/tehran.png" alt="University of Tehran">
+                    </div>
+                    <div class="edu-content">
+                        <h3 class="edu-degree">Master of Science (M.Sc.)</h3>
+                        <div class="edu-school">University of Tehran</div>
+                        <div class="edu-date">September 2021 — February 2025</div>
+                        <div class="edu-details">
+                            Health Information Technology (Medical Information Technology)
+                            <span class="edu-gpa">Grade: 18.50/20.00 (A)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="edu-card">
+                    <div class="edu-logo">
+                        <img src="image/sharif.png" alt="Yazdanpanah University">
+                    </div>
+                    <div class="edu-content">
+                        <h3 class="edu-degree">Bachelor of Science (B.Sc.)</h3>
+                        <div class="edu-school">Yazdanpanah University of Sanandaj, Kurdistan</div>
+                        <div class="edu-date">September 2012 — February 2017</div>
+                        <div class="edu-details">
+                            Control Engineering
+                            <span class="edu-gpa">GPA: 15.50/20.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-			<!-- Two -->
-			<section id="education">
-				<div class="container">
-					<h3>Academic History</h3>
-						<table>
-							
-						<!--Tehran-->
-						<tr>
-							<td width="80px"><center><img src="image/tehran.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<b><a href="http://ut.ac.ir/en">University of Tehran</a></b>, Iran
-								<div id="date_strong" align="left"> Sept. 2021&mdash; Feb. 2024</div>
-								<i>M.Sc.</i> in Health Information technology<br>
-								<b>GPA:</b> 18.50/20.00<br>						
-								</div>
-						</td>
+        <!-- Teaching Experience -->
+        <section id="teaching" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">TEACHING</span>
+                <h2 class="section-title">Teaching Assistant Experience</h2>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎓</div>
+                    <h3 class="card-title">Speech Processing</h3>
+                    <p class="card-description">
+                        <strong>University of Tehran</strong><br>
+                        Teaching Assistant for Prof. Hadi Veisi<br>
+                        Winter 2024
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3 class="card-title">Machine Learning</h3>
+                    <p class="card-description">
+                        <strong>University of Tehran</strong><br>
+                        Teaching Assistant for Prof. Saman Harati-Zadeh<br>
+                        Fall 2023
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">💾</div>
+                    <h3 class="card-title">Big Data</h3>
+                    <p class="card-description">
+                        <strong>University of Tehran</strong><br>
+                        Teaching Assistant for Prof. Saman Harati-Zadeh<br>
+                        Winter 2024
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🏥</div>
+                    <h3 class="card-title">Medical AI</h3>
+                    <p class="card-description">
+                        <strong>University of Tehran</strong><br>
+                        Teaching Assistant for Prof. Mehdi Teimouri<br>
+                        Winter 2024
+                    </p>
+                </div>
+            </div>
+        </section>
 
-						<!--yazdanpanah University of Technology-->
-						<tr>
-							<td width="80px"><center><img src="image/sharif.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<b><a href="http://ut.ac.ir/en">Yazdanpanah University of Sanandaj</a></b>, Iran
-								<div id="date_strong" align="left"> Sept. 2012&mdash; Feb. 2017</div>
-								<i>B.Sc.</i> in Control engineering<br>
-								<b>GPA:</b> 15.50/20.00<br>						
-								</div>
-						</td>
+        <!-- Honors Section -->
+        <section id="honors" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">ACHIEVEMENTS</span>
+                <h2 class="section-title">Honors & Awards</h2>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🏆</div>
+                    <h3 class="card-title">Top Student Award</h3>
+                    <p class="card-description">
+                        Ranked 1st as the top student for one semester at University of Tehran
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">2022-2023</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🎙️</div>
+                    <h3 class="card-title">Largest Financial Speech Dataset</h3>
+                    <p class="card-description">
+                        Created and published the largest financial speech dataset for Persian language
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">2023</span>
+                        <span class="tag"><a href="https://github.com/ard9" style="color: inherit; text-decoration: none;">GitHub</a></span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3 class="card-title">M.Sc. Entrance Exam Excellence</h3>
+                    <p class="card-description">
+                        Ranked in top 0.1% in M.Sc. Entrance Exam among ~60,000 participants in Iran
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">August 2021</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🥋</div>
+                    <h3 class="card-title">Martial Arts Champion</h3>
+                    <p class="card-description">
+                        10 years of professional martial arts with various national and provincial titles
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Multiple Years</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-						</tr>
-						
-						<!--high school-->
+        <!-- Languages Section -->
+        <section id="languages" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">LANGUAGES</span>
+                <h2 class="section-title">Language Proficiency</h2>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🇺🇸</div>
+                    <h3 class="card-title">English</h3>
+                    <p class="card-description">
+                        <strong>TOEFL iBT: 103/120</strong><br>
+                        Reading: 24 | Listening: 28 | Speaking: 24 | Writing: 27
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">April 2021</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🇮🇷</div>
+                    <h3 class="card-title">Persian (Farsi)</h3>
+                    <p class="card-description">
+                        <strong>Native Language</strong><br>
+                        Full professional proficiency
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🗣️</div>
+                    <h3 class="card-title">Kurdish</h3>
+                    <p class="card-description">
+                        <strong>Native Language</strong><br>
+                        Born in Sanandaj, Kurdistan
+                    </p>
+                </div>
+            </div>
+        </section>
 
-					</table>
-				</div>
-			</section>
+        <!-- Contact Section -->
+        <section id="contact" class="animate-on-scroll">
+            <div class="section-header">
+                <span class="section-label">GET IN TOUCH</span>
+                <h2 class="section-title">Contact Information</h2>
+                <p class="section-description">
+                    Feel free to reach out for collaborations, opportunities, or just to connect!
+                </p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">
+                        <a href="mailto:rahiimii.ai@gmail.com">rahiimii.ai@gmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-value">
+                        <a href="tel:+989189840060">+98 918 984 0060</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div class="contact-label">LinkedIn</div>
+                    <div class="contact-value">
+                        <a href="https://linkedin.com/in/armin-rahimi-darehbagh" target="_blank">Connect</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="contact-label">GitHub</div>
+                    <div class="contact-value">
+                        <a href="https://github.com/ard9" target="_blank">@ard9</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-			<!-- Three -->
-			<section id="teaching">
-				<div class="container">
-					<h3>Teacher Assistant</h3>
-					<table>
-						<!--Tehran-->
-						<tr>
-							<td width="80px"><center><img src="image/tehran.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<b style="font-size:120%">Graduate Teaching Assistant</b>, University of Tehran<br>
-								<ul>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">
+                &copy; 2025 Armin Rahimi Darehbagh. Built with passion for AI and innovation.
+            </p>
+            <div class="footer-links">
+                <a href="#about" class="footer-link">About</a>
+                <a href="#experience" class="footer-link">Experience</a>
+                <a href="#projects" class="footer-link">Projects</a>
+                <a href="#skills" class="footer-link">Skills</a>
+                <a href="#education" class="footer-link">Education</a>
+                <a href="#contact" class="footer-link">Contact</a>
+            </div>
+        </div>
+    </footer>
 
-									<li>
-										<div id="date_strong_1">Winter 2024</div>
-										<div style="text-align:justify;">
-											<b>Speech Processing</b>, Prof. Hadi veisi<br>
-										</div>
-							        </li>
-									
-								</ul>
-							</td>
-						</tr>
-					</table>					
-					
-					<table>
-						<!--Tehran-->
-						<tr>
-							<td width="80px"><center><img src="image/tehran.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<b style="font-size:120%">Graduate Teaching Assistant</b>, University of Tehran<br>
-								<ul>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CXZBZYHNK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5CXZBZYHNK');
+    </script>
 
-									<li>
-										<div id="date_strong_1">Fall 2023</div>
-										<div style="text-align:justify;">
-											<b>Machine Learning </b>, Prof. Saman Harati-Zadeh<br>
-										</div>
-							        </li>
-									
-								</ul>
-							</td>
-						</tr>
-					</table>
-					<table>
-						<!--Tehran-->
-						<tr>
-							<td width="80px"><center><img src="image/tehran.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<b style="font-size:120%">Graduate Teaching Assistant</b>, University of Tehran<br>
-								<ul>
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
 
-									<li>
-										<div id="date_strong_1">Winter 2024</div>
-										<div style="text-align:justify;">
-											<b>Big Data</b>, Prof. Saman Harati-Zadeh<br>
-										</div>
-							        </li>
-									
-								</ul>
-							</td>
-						</tr>
-					</table>
-					<table>
-						<!--Tehran-->
-						<tr>
-							<td width="80px"><center><img src="image/tehran.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<b style="font-size:120%">Graduate Teaching Assistant</b>, University of Tehran<br>
-								<ul>
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
 
-									<li>
-										<div id="date_strong_1">Winter 2024</div>
-										<div style="text-align:justify;">
-											<b>Medical Artificial Intelligence</b>, Prof. Mehdi Teimouri<br>
-										</div>
-							        </li>
-									
-								</ul>
-							</td>
-						</tr>
-					</table>										
-				</div>
-			</section>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
 
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
 
-			<!-- Four -->
-			<!--
-			<section id="Publications">
-				<div class="container">
-					<h3>Publications</h3>
-					<table>
-					</table>
-				</div>
-			</section> 
-			-->
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
 
-			<!-- Five -->
+        // Active Navigation Link
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
 
-			<section id="Working Papers">
-				<div class="container">
-					<h3>Articles</h3>
-					<table>
-
-					</table>
-				</div>
-			</section> 
-
-
-
-			<!-- Six -->
-			<section id="research">
-				<div class="container">
-					<h3>Research Experience</h3>
-					<table>	
-					<!-- Research Intern -->
-					
-					</table>
-				</div>
-			</section>
-
-
-			<!-- Seven -->
-			<section id="skills">
-				<div class="container">
-					<h3>Skills</h3>
-					<table>
-						<!--Programming-->
-						<tr>
-							<td width="80px"><center><img src="image/programming.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;text-align:left;">
-								<b>Programming Languages</b><br>
-								<ul>
-									<li>
-										<div style="text-align:justify;"><i></i> C++, Java, Python, R, Logo, Octave, SQL, Matlab, LaTex</div>
-									</li>
-									<li>
-										<div style="text-align:justify;"><i></i>HTML, CSS</div>
-									</li>
-
-
-								</ul>
-							</td>
-						</tr>
-						<!--Toolboxes and Frameworks-->
-						<tr>
-							<td width="80px"><center><img src="image/frameworks.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;text-align:left;">
-								<b>Tools, Platforms, and Libraries:</b><br>
-								<ul>
-									<li>
-										<div style="text-align:justify;">PyTorch, Keras, Tensorflow, HuggingFace, Transformers, Darts, Sktime, Scikit-learn, NetworkX, Stable Baselines </div>
-									</li>
-									<li>
-										<div style="text-align:justify;">Git, Github</div>
-									</li>	
-									<li>
-										<div style="text-align:justify;">CCNA, CCNP, LPIC1, MCSE</div>					
-									</li>
-									<li>
-										<div style="text-align:justify;">SQL Sever, SSIS, SSAS, Power BI</div>
-									</li>
-									<li>
-										<div style="text-align:justify;">SARIMAX, VAR, GARCH</div>
-									</li>
-									<li>
-										<div style="text-align:justify;">Web Crawling (Selenium, Beautiful Soup)</div>
-									</li>
-
-
-								</ul>
-
-							</td>
-						</tr>
-					</table>
-				</div>
-			</section>
-
-
-			<!-- Eight -->
-			<section id="Languages">
-				<div class="container">
-					<h3>Foreign languages</h3>
-					<table>
-						<tr>
-							<td width="80px"><center><img src="image/TOEFL_Logo.svg.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<b>English, TOEFL iBT Test</b> <br>
-								<i>Total: 103, </i> Reading: 24, Listening: 28, Speaking: 24, Writing: 27</a>
-								<div id="date_strong_1">Apr. 2021</div>
-								<ul>
-									<div style="text-align:justify;">
-										<! -- --> 
-									</div>
-								</ul>
-							</td>
-						</tr>
-					
-					</table>
-				</div>
-			</section>
-
-
-
-
-			<!-- Nine -->
-			<section id="honors">
-				<div class="container">
-					<h3>Honors and Awards</h3>
-
-					<table>
-						<!--YSC-->
-						<tr>
-							<td width="80px"><center><img src="image/tehran.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<ul>
-									<li>
-										<b>1<sup>st</sup> Ranked as the top student for one semester in a row</b><br>
-										<div id="date_strong_1">2022&mdash;2023</div>
-						        	</li>
-								</ul>
-							</td>
-						</tr>
-						<tr>
-							<td width="80px"><center><img src="image/tehran.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<ul>
-									<li>
-										<b><a href="https://github.com/ard9">Created The Largest Financial Speech Dataset</a></b><br>
-										<div id="date_strong_1">2023</div>
-						        	</li>
-								</ul>
-							</td>
-						</tr>
-
-						<tr>
-							<td width="80px"><center><img src="image/sanjesh.png" alt="" width="80px"/></center></td>
-							<td style="vertical-align:top;">
-								<ul>
-									<li>
-										<b>Ranked in top 0.1% in M.Sc. Entrance Exam, About 60,000 participants in Iran</b><br>
-										<div id="date_strong_1">Agu. 2021</div>
-						        	</li>
-								</ul>
-							</td>
-
-					</table>
-				</div>
-			</section>
-
-
-
-
-
-
-
-		<!-- Four 
-		<section id="contact">
-			<div class="container">
-				<h3>Contact</h3>
-
-				<i>Email:</i>
-				<ul>
-					<a href="mailto:Armin.rahimi48@gmail.com ">Armin.rahimi48@gmail.com</a> 
-				</ul>
-
-				<i>Skype:</i>
-				<ul>
-					<a href="https://join.skype.com/invite/lX84wYTImor4">Skype</a>
-				</ul>
-
-				<i>Address:</i>
-				<ul>
-					<div style="text-align:justify;">
-						Department of Electrical and Computer Engineering,<br>
-						University of Tehran
-					</div>
-				</ul>
-
-			</div>
-		</section>
-
-		-->
-		<!-- Footer -->
-
-
-	</body>
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
 </html>
-
