@@ -7,13 +7,16 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { config } from '../lib/config';
+import { resolveFonts } from '../lib/fonts';
 
 interface Props { title?: string; description?: string; image?: string; type?: 'website' | 'article' }
 const { title, description = config.site.description, image = config.author.photo, type = 'website' } = Astro.props;
 const fullTitle = title ? `${title} | ${config.site.title}` : `${config.site.title}, ${config.author.role}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
-const themeVars = `:root{--accent:${config.theme.accent};--accent-2:${config.theme.accent_2};}`;
+const fonts = resolveFonts();
+// :root:root wins over the defaults in global.css regardless of stylesheet order
+const themeVars = `:root:root{--accent:${config.theme.accent};--accent-2:${config.theme.accent_2};${fonts.vars}}`;
 ---
 <!doctype html>
 <html lang={config.site.language}>
@@ -32,6 +35,9 @@ const themeVars = `:root{--accent:${config.theme.accent};--accent-2:${config.the
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {fonts.googleHref && <link rel="preconnect" href="https://fonts.googleapis.com" />}
+    {fonts.googleHref && <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />}
+    {fonts.googleHref && <link rel="stylesheet" href={fonts.googleHref} />}
     <style set:html={themeVars}></style>
     <slot name="head" />
   </head>

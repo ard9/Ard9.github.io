@@ -6,6 +6,11 @@ import resumeRaw from '../../config/resume.yaml?raw';
 const link = z.object({ label: z.string(), href: z.string() });
 const social = z.object({ label: z.string(), url: z.string(), icon: z.string().default('website') });
 
+const font = z.union([
+  z.string(),
+  z.object({ family: z.string(), weights: z.string().optional(), italic: z.boolean().optional() }),
+]);
+
 const siteSchema = z.object({
   site: z.object({
     url: z.string().url(),
@@ -38,6 +43,11 @@ const siteSchema = z.object({
     cv: z.object({ title: z.string() }),
   }),
   footer: z.object({ note: z.string().optional() }).default({}),
+  fonts: z.object({
+    display: font.default('Bricolage Grotesque'),
+    prose: font.default('Newsreader'),
+    code: font.default('JetBrains Mono'),
+  }).default({}),
   theme: z.object({ accent: z.string().default('#FBB061'), accent_2: z.string().default('#E0507A') }).default({}),
 });
 

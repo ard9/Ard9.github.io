@@ -67,6 +67,20 @@ sections:
 footer:
   note: Built with Astro. All content lives in plain text files on GitHub.
 
+# Fonts. Just write a font name.
+#  • Built in (no setup): Bricolage Grotesque, Newsreader, JetBrains Mono
+#  • Any other name is loaded from Google Fonts. Copy the exact name from fonts.google.com
+#  • Optional detail: choose weights, or italic for the prose font:
+#      prose:
+#        family: Lora
+#        weights: "400;600"      # or a range for variable fonts, e.g. "300..700"
+#        italic: true
+#    If a Google font has only one weight (e.g. Bebas Neue), set weights: "400"
+fonts:
+  display: Bricolage Grotesque   # headings, menu, buttons, labels
+  prose: Newsreader              # long text: tutorials, intro, CV summary
+  code: JetBrains Mono           # code blocks
+
 # Theme colours. Change these to re-tint the whole site.
 theme:
   accent: "#FBB061"

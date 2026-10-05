@@ -7,7 +7,7 @@ Built with [Astro](https://astro.build) and deployed to GitHub Pages automatical
 
 | What you want to change | Edit this |
 | --- | --- |
-| Name, intro, menu, social links, colours | `config/site.yaml` |
+| Name, intro, menu, social links, fonts, colours | `config/site.yaml` |
 | CV (jobs, skills, education…) | `config/resume.yaml` |
 | Projects | `content/projects/*.md` |
 | Tutorials | `content/tutorials/*.md` |
@@ -52,6 +52,22 @@ Create `content/pages/about.md`, then add it to `nav:` in `config/site.yaml`:
 nav:
   - label: About
     href: /about
+```
+
+## Change fonts
+
+In `config/site.yaml`, write any font name under `fonts:`. The three built-in fonts
+load from the site itself; any other name is loaded from Google Fonts, so copy the
+exact name from [fonts.google.com](https://fonts.google.com).
+
+```yaml
+fonts:
+  display: Space Grotesk
+  prose:
+    family: Lora
+    weights: "400;600"
+    italic: true
+  code: JetBrains Mono
 ```
 
 ## If something is wrong
