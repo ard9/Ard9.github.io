@@ -1,0 +1,23 @@
+---
+import Base from '../../../layouts/Base.astro';
+import TutorialRow from '../../../components/TutorialRow.astro';
+import { config } from '../../../lib/config';
+import { getTutorials, getTopics, slugify } from '../../../lib/utils';
+export async function getStaticPaths() {
+  const tutorials = await getTutorials();
+  return (await getTopics()).map((topic) => ({
+    params: { topic: topic.slug },
+    props: { topic, items: tutorials.filter((t) => slugify(t.data.topic) === topic.slug) },
+  }));
+}
+const { topic, items } = Astro.props;
+---
+<Base title={`${topic.name} tutorials`}>
+  <header class="page-head wrap">
+    <a class="crumb" href="/tutorials">{config.sections.tutorials.title}</a>
+    <h1>{topic.name}</h1>
+    <p>{topic.count} {topic.count === 1 ? 'tutorial' : 'tutorials'}</p>
+  </header>
+  <section class="wrap section"><ul class="list">{items.map((t) => <TutorialRow tutorial={t} showTopic={false} />)}</ul></section>
+</Base>
+<style>.list { list-style: none; margin: 0; padding: 0; }</style>

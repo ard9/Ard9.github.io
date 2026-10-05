@@ -1,0 +1,93 @@
+# ─────────────────────────────────────────────────────────────
+#  Your CV. The /cv page is generated from this file.
+#  To add a job, copy one block under "experience" and edit it.
+# ─────────────────────────────────────────────────────────────
+
+pdf: /files/Resume_ArminRahimiDarehbagh_2026.pdf   # download button; delete this line to hide it
+show_phone: false                                   # set to true to show your phone on the site
+phone: "+98 939 384 6626"
+
+summary: >-
+  AI engineer specialising in production-grade speech AI (ASR, TTS, wake word) and large
+  language models. I've trained models on 80,000+ hours of audio, deployed multi-GPU
+  inference on H100s and cut system latency by 40% with TensorRT. I work end to end:
+  data engineering, training, real-time streaming APIs, multi-agent LLM systems, and the
+  Linux, Docker, KVM and observability stack underneath.
+
+experience:
+  - role: AI Engineer
+    company: Smilinno
+    location: Tehran, Iran
+    start: Jun 2024
+    end: May 2026
+    groups:
+      - title: Speech recognition (ASR)
+        items:
+          - Fine-tuned ASR models on 40,000+ hours of Persian speech with PyTorch and Hugging Face.
+          - Built a production streaming ASR pipeline with sub-second latency.
+          - Developed a telephony simulation pipeline that converted 30,000+ hours of audio to narrowband.
+          - Transcribed 10,000+ hours of real phone calls to improve model robustness.
+          - Engineered a noise-robust ASR model for narrowband telephony.
+      - title: Text-to-speech (TTS)
+        items:
+          - Deployed a bilingual (Persian/English) TTS engine trained on 40,000 hours of audio.
+          - Reduced inference latency with custom TensorRT kernel optimisation.
+          - Implemented Persian text normalisation for numbers, dates and complex formulas.
+      - title: Wake word detection
+        items:
+          - Designed a custom low-latency neural network for wake-word detection.
+          - Trained on 5M+ balanced samples from 4,300+ natural speakers.
+          - Engineered a few-shot engine for user-defined trigger phrases.
+          - Shipped TFLite/ONNX models to Android (Zigap app) with high accuracy and low power draw.
+      - title: LLM & agentic systems
+        items:
+          - Designed RAG pipelines for enterprise document Q&A on Chroma.
+          - Fine-tuned LLaMA-family models with LoRA/QLoRA for domain tasks.
+          - Architected multi-agent "judge" systems to improve SQL generation accuracy.
+          - Deployed vLLM and NVIDIA Triton inference on dual H100 GPUs.
+      - title: Inference infrastructure
+        items:
+          - Cut system-wide latency by 40% through TensorRT compilation.
+          - Built an asynchronous worker-queue architecture (RabbitMQ, Redis, Celery) for bulk audio processing.
+          - Real-time WebSocket streaming pipelines with FastAPI.
+          - Provisioned KVM virtualisation with GPU passthrough for isolated ASR, TTS and training VMs.
+          - Nginx reverse proxy, MLflow experiment tracking, Grafana dashboards and Kibana log aggregation.
+          - Git-based CI/CD workflows and automated deployments.
+
+projects:
+  - name: Knee osteoarthritis detection
+    description: End-to-end deep learning pipeline for automated X-ray analysis using CLAHE preprocessing, feature extraction and classification.
+  - name: Enterprise social network platform
+    description: Real-time organisational feeds over WebSockets and a gamification engine with virtual currency, peer recognition and achievements.
+
+skills:
+  - group: Speech & ML
+    items: [PyTorch, TensorFlow, Hugging Face, ASR, TTS, Wake word, LoRA / QLoRA, RAG, Vector DBs, NLP]
+  - group: Inference
+    items: [NVIDIA Triton, TensorRT, vLLM, CUDA, Multi-GPU (H100), TFLite, ONNX, Edge AI]
+  - group: Infrastructure
+    items: [Docker, KVM, Linux, Nginx, FastAPI, WebSockets, Redis, MLflow, Grafana, Kibana, CI/CD]
+  - group: Programming
+    items: [Python, C++, Bash]
+
+education:
+  - degree: M.Sc. Medical Information Technology Engineering
+    school: University of Tehran
+    start: "2021"
+    end: "2023"
+  - degree: B.Sc. Electrical Engineering
+    school: University of Kurdistan
+    start: "2013"
+    end: "2018"
+
+certifications:
+  - name: Machine Learning Specialization
+    issuer: Andrew Ng, Coursera (3 courses)
+
+languages:
+  - name: Persian
+    level: Native
+  - name: Kurdish
+    level: Native
+  - name: English
+    level: Intermediate

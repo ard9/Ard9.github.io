@@ -1,0 +1,73 @@
+# ─────────────────────────────────────────────────────────────
+#  Site settings — edit this file to change text, links and menu.
+#  You never need to touch the code for these.
+# ─────────────────────────────────────────────────────────────
+
+site:
+  url: https://ard9.github.io          # your live address
+  title: Armin Rahimi
+  description: AI engineer working on speech recognition, text-to-speech, wake-word detection and LLM systems.
+  repo: ard9/Ard9.github.io            # used for "Open in Colab" and "View source" links
+  branch: main
+  language: en
+
+author:
+  name: Armin Rahimi
+  role: AI Engineer, Speech & LLM Systems
+  location: Tehran, Iran
+  photo: /images/profile.jpg
+  email: rahimi.ai@ut.ac.ir
+
+# Links shown in the hero, footer and CV.
+# Available icons: github, linkedin, email, x, scholar, website, telegram, youtube, kaggle, huggingface
+socials:
+  - label: GitHub
+    url: https://github.com/ard9
+    icon: github
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/armin-rahimi-darehbagh
+    icon: linkedin
+  - label: Email
+    url: mailto:rahimi.ai@ut.ac.ir
+    icon: email
+
+# Top menu. Add, remove or reorder freely.
+# Any page you put in content/pages/ can be linked here, e.g. /about
+nav:
+  - label: Work
+    href: /projects
+  - label: Tutorials
+    href: /tutorials
+  - label: CV
+    href: /cv
+
+home:
+  headline: I build machines that listen and speak.
+  intro: >-
+    I'm an AI engineer focused on production speech systems: ASR trained on tens of
+    thousands of hours of Persian audio, bilingual TTS, on-device wake-word detection,
+    and the GPU infrastructure that serves them. This is where I keep my work, my files
+    and the tutorials I write along the way.
+  # Which blocks appear on the home page, in this order: projects, tutorials, experience
+  sections: [projects, tutorials, experience]
+  projects_count: 4        # how many featured projects to show
+  tutorials_count: 4       # how many recent tutorials to show
+  experience_title: Latest role   # heading above the job preview (first job in resume.yaml)
+
+sections:
+  projects:
+    title: Work & files
+    intro: Projects I've built, with the code, models, papers and files that go with them.
+  tutorials:
+    title: Tutorials
+    intro: Practical notes on speech AI, model training and deployment. Many come with a notebook you can run in Colab.
+  cv:
+    title: Curriculum vitae
+
+footer:
+  note: Built with Astro. All content lives in plain text files on GitHub.
+
+# Theme colours. Change these to re-tint the whole site.
+theme:
+  accent: "#FBB061"
+  accent_2: "#E0507A"

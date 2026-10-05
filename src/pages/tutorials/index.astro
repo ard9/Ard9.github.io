@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import TutorialRow from '../../components/TutorialRow.astro';
+import { config } from '../../lib/config';
+import { getTutorials, getTopics, slugify } from '../../lib/utils';
+const tutorials = await getTutorials();
+const topics = await getTopics();
+const { title, intro } = config.sections.tutorials;
+---
+<Base title={title} description={intro}>
+  <header class="page-head wrap">
+    <h1>{title}</h1>
+    {intro && <p>{intro}</p>}
+    {topics.length > 1 && (
+      <nav class="topics" aria-label="Topics">
+        {topics.map((t) => <a href={`#${t.slug}`}>{t.name}<span>{t.count}</span></a>)}
+      </nav>
+    )}
+  </header>
+  <div class="wrap">
+    {tutorials.length === 0 && <p class="empty">No tutorials yet. Add a Markdown file to <code>content/tutorials/</code> and it will appear here.</p>}
+    {topics.map((topic) => (
+      <section class="section" id={topic.slug}>
+        <div class="section-head"><h2>{topic.name}</h2><a href={`/tutorials/topic/${topic.slug}`}>Topic page</a></div>
+        <ul class="list">
+          {tutorials.filter((t) => slugify(t.data.topic) === topic.slug).map((t) => <TutorialRow tutorial={t} showTopic={false} />)}
+        </ul>
+      </section>
+    ))}
+  </div>
+</Base>
+<style>
+  .list { list-style: none; margin: 0; padding: 0; }
+  .topics { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+  .topics a { text-decoration: none; padding: 0.45rem 0.85rem; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 0.92rem; color: var(--fg-soft); }
+  .topics a span { color: var(--muted); margin-left: 0.4rem; font-variant-numeric: tabular-nums; }
+  .topics a:hover { border-color: var(--accent); color: var(--accent); }
+  .empty { color: var(--muted); padding-block: 3rem; }
+</style>

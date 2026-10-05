@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import Waveform from '../components/Waveform.astro';
+import Icon from '../components/Icon.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import TutorialRow from '../components/TutorialRow.astro';
+import { config, resume } from '../lib/config';
+import { getProjects, getTutorials } from '../lib/utils';
+
+const { home, author, sections, socials } = config;
+const all = await getProjects();
+const featured = [...all.filter((p) => p.data.featured), ...all.filter((p) => !p.data.featured)].slice(0, home.projects_count);
+const tutorials = (await getTutorials()).slice(0, home.tutorials_count);
+const job = resume.experience[0];
+---
+<Base>
+  <section class="hero wrap">
+    <p class="who">{author.name}<span>{author.role}</span></p>
+    <h1>{home.headline}</h1>
+    <p class="intro">{home.intro}</p>
+    <Waveform seed={author.name} />
+    <div class="btn-row">
+      <a class="btn primary" href="/cv">View my CV</a>
+      {socials.map((s) => (
+        <a class="btn" href={s.url} rel="me noopener" target={s.url.startsWith('mailto:') ? undefined : '_blank'}><Icon name={s.icon} />{s.label}</a>
+      ))}
+    </div>
+  </section>
+
+  <div class="wrap">
+    {home.sections.map((block) => {
+      if (block === 'projects' && featured.length) return (
+        <section class="section">
+          <div class="section-head"><h2>{sections.projects.title}</h2><a href="/projects">All work ({all.length})</a></div>
+          <ul class="list">{featured.map((p) => <ProjectRow project={p} />)}</ul>
+        </section>
+      );
+      if (block === 'tutorials' && tutorials.length) return (
+        <section class="section">
+          <div class="section-head"><h2>{sections.tutorials.title}</h2><a href="/tutorials">All tutorials</a></div>
+          <ul class="list">{tutorials.map((t) => <TutorialRow tutorial={t} />)}</ul>
+        </section>
+      );
+      if (block === 'experience' && job) return (
+        <section class="section now">
+          <div class="section-head"><h2>{home.experience_title}</h2><a href="/cv">Full CV</a></div>
+          <div class="job">
+            <div>
+              <h3>{job.role}, {job.company}</h3>
+              <p class="when">{job.start} to {job.end}{job.location && `, ${job.location}`}</p>
+            </div>
+            {job.groups.length > 0 && <ul class="tags">{job.groups.map((g) => <li class="tag">{g.title}</li>)}</ul>}
+          </div>
+        </section>
+      );
+    })}
+  </div>
+</Base>
+
+<style>
+  .hero { padding-top: clamp(3.5rem, 10vw, 7rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
+  .who { display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; margin: 0 0 1.4rem; font-size: 1.05rem; font-weight: 500; }
+  .who span { color: var(--muted); font-weight: 400; }
+  h1 {
+    font-size: clamp(3rem, 9.5vw, 7.4rem);
+    font-weight: 700; font-stretch: 78%; line-height: 0.95; letter-spacing: -0.035em;
+    max-width: 13ch;
+    background: linear-gradient(100deg, var(--fg) 55%, color-mix(in srgb, var(--accent) 70%, var(--fg)));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .intro { margin: 1.8rem 0 0; max-width: 58ch; font-family: var(--font-prose); font-size: clamp(1.15rem, 2vw, 1.35rem); line-height: 1.6; color: var(--fg-soft); }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .job { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1.5rem 1.6rem; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--ink-raised); }
+  .job h3 { font-size: 1.3rem; }
+  .when { margin: 0.35rem 0 0; color: var(--muted); }
+</style>

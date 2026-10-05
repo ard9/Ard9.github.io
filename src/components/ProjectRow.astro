@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { project: CollectionEntry<'projects'>; showCover?: boolean }
+const { project, showCover = false } = Astro.props;
+const { title, description, date, tags, cover, status } = project.data;
+---
+<li class="row" data-tags={tags.join('|')}>
+  <a href={`/projects/${project.id}`}>
+    <time datetime={date.toISOString()}>{date.getFullYear()}</time>
+    <div class="body">
+      <h3>{title}{status && <span class="status">{status}</span>}</h3>
+      <p>{description}</p>
+      {tags.length > 0 && <ul class="tags">{tags.map((t) => <li class="tag">{t}</li>)}</ul>}
+    </div>
+    {showCover && cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
+  </a>
+</li>
+<style>
+  .row { border-top: 1px solid var(--line); }
+  .row:last-child { border-bottom: 1px solid var(--line); }
+  a { display: grid; grid-template-columns: 5rem 1fr auto; gap: 1.5rem; align-items: start; padding: 1.6rem 0.75rem; margin-inline: -0.75rem; text-decoration: none; border-radius: var(--radius-s); transition: background .2s; }
+  a:hover { background: var(--ink-raised); color: inherit; }
+  a:hover h3 { color: var(--accent); }
+  time { color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 0.2rem; }
+  h3 { font-size: 1.35rem; font-weight: 600; transition: color .15s; display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
+  .status { font-size: 0.78rem; font-weight: 500; color: var(--accent-2); letter-spacing: 0; }
+  p { margin: 0.45rem 0 0.9rem; color: var(--fg-soft); max-width: 60ch; }
+  img { width: 9rem; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-s); border: 1px solid var(--line); }
+  @media (max-width: 40rem) {
+    a { grid-template-columns: 1fr; gap: 0.35rem; }
+    img { width: 100%; order: -1; margin-bottom: 0.6rem; aspect-ratio: 16/9; }
+  }
+</style>

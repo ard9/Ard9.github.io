@@ -1,0 +1,158 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { config, resume } from '../lib/config';
+const { author, socials, sections } = config;
+const r = resume;
+---
+<Base title={sections.cv.title} description={r.summary}>
+  <header class="page-head wrap cv-head">
+    <div class="id">
+      {author.photo && <img src={author.photo} alt={author.name} width="128" height="128" />}
+      <div>
+        <h1>{author.name}</h1>
+        <p class="role">{author.role}</p>
+        <ul class="contact">
+          {author.location && <li><Icon name="map" />{author.location}</li>}
+          {socials.map((s) => <li><a href={s.url} target={s.url.startsWith('mailto:') ? undefined : '_blank'} rel="me noopener"><Icon name={s.icon} />{s.url.replace(/^mailto:|^https?:\/\/(www\.)?/g, '')}</a></li>)}
+          {r.show_phone && r.phone && <li><a href={`tel:${r.phone.replace(/\s/g, '')}`}>{r.phone}</a></li>}
+        </ul>
+      </div>
+    </div>
+    <div class="btn-row no-print">
+      {r.pdf && <a class="btn primary" href={r.pdf} download><Icon name="download" />Download PDF</a>}
+      <button class="btn" type="button" onclick="window.print()"><Icon name="printer" />Print</button>
+    </div>
+  </header>
+
+  <div class="wrap cv">
+    {r.summary && <p class="summary">{r.summary}</p>}
+
+    {r.experience.length > 0 && (
+      <section class="block">
+        <h2>Experience</h2>
+        <ol class="timeline">
+          {r.experience.map((job) => (
+            <li>
+              <div class="when">{job.start} to {job.end}</div>
+              <div class="what">
+                <h3>{job.role}</h3>
+                <p class="org">{job.company}{job.location && `, ${job.location}`}</p>
+                {job.summary && <p>{job.summary}</p>}
+                {job.items.length > 0 && <ul class="points">{job.items.map((i) => <li>{i}</li>)}</ul>}
+                {job.groups.map((g) => (
+                  <div class="group">
+                    <h4>{g.title}</h4>
+                    <ul class="points">{g.items.map((i) => <li>{i}</li>)}</ul>
+                  </div>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {r.skills.length > 0 && (
+      <section class="block">
+        <h2>Skills</h2>
+        <dl class="skills">
+          {r.skills.map((s) => (<div><dt>{s.group}</dt><dd><ul class="tags">{s.items.map((i) => <li class="tag">{i}</li>)}</ul></dd></div>))}
+        </dl>
+      </section>
+    )}
+
+    <div class="split">
+      {r.education.length > 0 && (
+        <section class="block">
+          <h2>Education</h2>
+          <ul class="plain">
+            {r.education.map((e) => (
+              <li><h3>{e.degree}</h3><p class="org">{e.school}</p>{(e.start || e.end) && <p class="dim">{[e.start, e.end].filter(Boolean).join(' to ')}</p>}{e.note && <p>{e.note}</p>}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+      <div>
+        {r.certifications.length > 0 && (
+          <section class="block">
+            <h2>Certifications</h2>
+            <ul class="plain">
+              {r.certifications.map((c) => (<li><h3>{c.url ? <a href={c.url} target="_blank" rel="noopener">{c.name}</a> : c.name}</h3>{c.issuer && <p class="org">{c.issuer}</p>}</li>))}
+            </ul>
+          </section>
+        )}
+        {r.languages.length > 0 && (
+          <section class="block">
+            <h2>Languages</h2>
+            <dl class="langs">{r.languages.map((l) => <div><dt>{l.name}</dt><dd>{l.level}</dd></div>)}</dl>
+          </section>
+        )}
+      </div>
+    </div>
+
+    {r.projects.length > 0 && (
+      <section class="block">
+        <h2>Other projects</h2>
+        <ul class="plain two">
+          {r.projects.map((p) => (<li><h3>{p.url ? <a href={p.url}>{p.name}</a> : p.name}</h3><p>{p.description}</p></li>))}
+        </ul>
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  .cv-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+  .id { display: flex; gap: clamp(1.25rem, 3vw, 2rem); align-items: center; flex-wrap: wrap; }
+  .id img { width: clamp(88px, 12vw, 128px); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 1px solid var(--line-strong); }
+  .cv-head h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); }
+  .role { margin: 0.5rem 0 0 !important; font-size: 1.15rem; color: var(--fg-soft); }
+  .contact { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.92rem; color: var(--muted); }
+  .contact li, .contact a { display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; }
+  .contact svg { width: 15px; height: 15px; }
+
+  .cv { padding-top: clamp(2rem, 5vw, 3rem); }
+  .summary { font-family: var(--font-prose); font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.6; color: var(--fg-soft); max-width: 62ch; margin: 0 0 1rem; }
+  .block { padding-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .block > h2 { font-size: 1.05rem; font-weight: 600; color: var(--accent); margin-bottom: 1.5rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 1.2rem; font-weight: 600; }
+  h4 { font-size: 1rem; font-weight: 600; color: var(--fg); margin-bottom: 0.5rem; }
+  .org { margin: 0.25rem 0 0; color: var(--fg-soft); }
+  .dim { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.92rem; }
+
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline > li { display: grid; grid-template-columns: 11rem 1fr; gap: 2rem; position: relative; }
+  .timeline > li + li { margin-top: 2.5rem; }
+  .when { color: var(--muted); font-size: 0.95rem; padding-top: 0.2rem; font-variant-numeric: tabular-nums; }
+  .what { border-left: 1px solid var(--line-strong); padding-left: 1.75rem; position: relative; }
+  .what::before { content: ''; position: absolute; left: -5px; top: 0.45rem; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--ink); }
+  .group { margin-top: 1.6rem; }
+  .points { margin: 0.5rem 0 0; padding-left: 1.1rem; color: var(--fg-soft); max-width: 70ch; }
+  .points li + li { margin-top: 0.3rem; }
+  .points li::marker { color: var(--accent-2); }
+
+  .skills { margin: 0; display: grid; gap: 1.1rem; }
+  .skills > div { display: grid; grid-template-columns: 11rem 1fr; gap: 2rem; align-items: baseline; }
+  .skills dt { color: var(--fg); font-weight: 500; }
+  .skills dd { margin: 0; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(2rem, 5vw, 4rem); }
+  .plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.4rem; }
+  .plain p { margin: 0.25rem 0 0; color: var(--fg-soft); }
+  .plain.two { grid-template-columns: 1fr 1fr; gap: 1.4rem 3rem; }
+  .langs { margin: 0; display: grid; gap: 0.6rem; }
+  .langs div { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--line); padding-bottom: 0.5rem; max-width: 22rem; }
+  .langs dd { margin: 0; color: var(--muted); }
+
+  @media (max-width: 44rem) {
+    .timeline > li, .skills > div { grid-template-columns: 1fr; gap: 0.5rem; }
+    .split, .plain.two { grid-template-columns: 1fr; }
+  }
+  @media print {
+    .page-head { padding-block: 0 1rem; }
+    .what::before { box-shadow: none; }
+    .block { padding-top: 1.2rem; break-inside: auto; }
+    .tag { border-color: #bbb; }
+  }
+</style>

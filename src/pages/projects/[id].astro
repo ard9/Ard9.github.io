@@ -1,0 +1,63 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import FileList from '../../components/FileList.astro';
+import Icon from '../../components/Icon.astro';
+import { config } from '../../lib/config';
+import { getProjects, formatDate } from '../../lib/utils';
+
+export async function getStaticPaths() {
+  return (await getProjects()).map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, description, date, tags, cover, links, files, status } = project.data;
+---
+<Base title={title} description={description} image={cover} type="article">
+  <header class="page-head wrap">
+    <a class="crumb" href="/projects">{config.sections.projects.title}</a>
+    <h1>{title}</h1>
+    <p>{description}</p>
+    <div class="meta">
+      <time datetime={date.toISOString()}>{formatDate(date, 'short')}</time>
+      {status && <span class="status">{status}</span>}
+      {tags.length > 0 && <ul class="tags">{tags.map((t) => <li class="tag">{t}</li>)}</ul>}
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <article class="prose">
+      {cover && <img class="cover" src={cover} alt="" />}
+      <Content />
+    </article>
+    {(links.length > 0 || files.length > 0) && (
+      <aside>
+        {links.length > 0 && (
+          <div class="block">
+            <h2>Links</h2>
+            <ul class="links">
+              {links.map((l) => <li><a class="btn" href={l.url} target="_blank" rel="noopener"><Icon name={/github\.com/.test(l.url) ? 'github' : 'external'} />{l.label}</a></li>)}
+            </ul>
+          </div>
+        )}
+        {files.length > 0 && (
+          <div class="block">
+            <h2>Files</h2>
+            <FileList files={files} />
+          </div>
+        )}
+      </aside>
+    )}
+  </div>
+</Base>
+
+<style>
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-top: 1.6rem; color: var(--muted); }
+  .status { color: var(--accent-2); }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: clamp(2rem, 5vw, 4.5rem); padding-top: clamp(2rem, 5vw, 3rem); align-items: start; }
+  aside { position: sticky; top: 5.5rem; display: grid; gap: 2rem; }
+  .block h2 { font-size: 1rem; color: var(--fg); margin-bottom: 0.8rem; }
+  .links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .cover { width: 100%; margin-bottom: 1rem; }
+  @media (max-width: 56rem) { .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } }
+</style>
