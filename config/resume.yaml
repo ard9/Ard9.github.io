@@ -8,8 +8,8 @@ show_phone: false                                   # set to true to show your p
 phone: "+98 939 384 6626"
 
 summary: >-
-  AI engineer specialising in production-grade speech AI (ASR, TTS, wake word) and large
-  language models. I've trained models on 80,000+ hours of audio, deployed multi-GPU
+  Machine learning engineer working across large language models, agentic systems,
+  production speech AI (ASR, TTS, wake word) and MLOps. I've trained models on 80,000+ hours of audio, deployed multi-GPU
   inference on H100s and cut system latency by 40% with TensorRT. I work end to end:
   data engineering, training, real-time streaming APIs, multi-agent LLM systems, and the
   Linux, Docker, KVM and observability stack underneath.
@@ -60,15 +60,22 @@ projects:
   - name: Enterprise social network platform
     description: Real-time organisational feeds over WebSockets and a gamification engine with virtual currency, peer recognition and achievements.
 
+# Skill groups. Add "area:" (an id from config/site.yaml) to show a group on that area's page.
 skills:
-  - group: Speech & ML
-    items: [PyTorch, TensorFlow, Hugging Face, ASR, TTS, Wake word, LoRA / QLoRA, RAG, Vector DBs, NLP]
-  - group: Inference
-    items: [NVIDIA Triton, TensorRT, vLLM, CUDA, Multi-GPU (H100), TFLite, ONNX, Edge AI]
-  - group: Infrastructure
-    items: [Docker, KVM, Linux, Nginx, FastAPI, WebSockets, Redis, MLflow, Grafana, Kibana, CI/CD]
-  - group: Programming
-    items: [Python, C++, Bash]
+  - group: LLMs & Agents
+    area: llm-agents
+    items: [LoRA / QLoRA, RAG, Vector DBs, Chroma, LLaMA family, Multi-agent systems, NLP]
+  - group: LLMOps & MLOps
+    area: ops
+    items: [NVIDIA Triton, TensorRT, vLLM, CUDA, Multi-GPU (H100), Docker, KVM, Nginx, MLflow, Grafana, Kibana, CI/CD]
+  - group: Speech & Audio
+    area: speech-audio
+    items: [ASR, TTS, Wake word, Text normalisation, TFLite, ONNX, Edge AI]
+  - group: Serving & data
+    area: ops
+    items: [FastAPI, WebSockets, Redis, RabbitMQ, Celery]
+  - group: Foundations
+    items: [PyTorch, TensorFlow, Hugging Face, Python, C++, Bash, Linux]
 
 education:
   - degree: M.Sc. Medical Information Technology Engineering

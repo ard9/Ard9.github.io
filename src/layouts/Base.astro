@@ -1,32 +1,40 @@
 ---
 import '@fontsource-variable/bricolage-grotesque/standard.css';
-import '@fontsource-variable/newsreader/standard.css';
-import '@fontsource-variable/newsreader/standard-italic.css';
+import '@fontsource-variable/instrument-sans/standard.css';
+import '@fontsource-variable/instrument-sans/standard-italic.css';
 import '@fontsource-variable/jetbrains-mono/index.css';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Search from '../components/Search.astro';
 import { config } from '../lib/config';
-import { resolveFonts } from '../lib/fonts';
+import { themeCss, resolveFonts } from '../lib/theme';
 
 interface Props { title?: string; description?: string; image?: string; type?: 'website' | 'article' }
 const { title, description = config.site.description, image = config.author.photo, type = 'website' } = Astro.props;
 const fullTitle = title ? `${title} | ${config.site.title}` : `${config.site.title}, ${config.author.role}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
-const fonts = resolveFonts();
-// :root:root wins over the defaults in global.css regardless of stylesheet order
-const themeVars = `:root:root{--accent:${config.theme.accent};--accent-2:${config.theme.accent_2};${fonts.vars}}`;
+const { googleHref } = resolveFonts();
+const defaultTheme = config.theme.default;
 ---
 <!doctype html>
 <html lang={config.site.language}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline define:vars={{ defaultTheme }}>
+      // Set the theme before the page paints, so it never flashes the wrong colours.
+      let t; try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = defaultTheme === 'system'
+        ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : defaultTheme;
+      document.documentElement.dataset.theme = t;
+    </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#130F1D" />
+    <meta name="theme-color" content={config.theme.dark.background} media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content={config.theme.light.background} media="(prefers-color-scheme: light)" />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -35,16 +43,17 @@ const themeVars = `:root:root{--accent:${config.theme.accent};--accent-2:${confi
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    {fonts.googleHref && <link rel="preconnect" href="https://fonts.googleapis.com" />}
-    {fonts.googleHref && <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />}
-    {fonts.googleHref && <link rel="stylesheet" href={fonts.googleHref} />}
-    <style set:html={themeVars}></style>
+    {googleHref && <link rel="preconnect" href="https://fonts.googleapis.com" />}
+    {googleHref && <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />}
+    {googleHref && <link rel="stylesheet" href={googleHref} />}
+    <style is:inline set:html={themeCss()}></style>
     <slot name="head" />
   </head>
   <body>
-    <a class="visually-hidden" href="#main">Skip to content</a>
+    <a class="visually-hidden skip" href="#main">Skip to content</a>
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+    <Search />
   </body>
 </html>

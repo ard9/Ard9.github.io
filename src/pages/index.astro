@@ -1,25 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
-import Waveform from '../components/Waveform.astro';
+import SignalPath from '../components/SignalPath.astro';
 import Icon from '../components/Icon.astro';
 import ProjectRow from '../components/ProjectRow.astro';
-import TutorialRow from '../components/TutorialRow.astro';
+import WritingRow from '../components/WritingRow.astro';
+import AreaTags from '../components/AreaTags.astro';
 import { config, resume } from '../lib/config';
-import { getProjects, getTutorials } from '../lib/utils';
+import { getProjects, getWriting, areaStats } from '../lib/utils';
 
 const { home, author, sections, socials } = config;
 const all = await getProjects();
 const featured = [...all.filter((p) => p.data.featured), ...all.filter((p) => !p.data.featured)].slice(0, home.projects_count);
-const tutorials = (await getTutorials()).slice(0, home.tutorials_count);
+const writing = (await getWriting()).slice(0, home.writing_count);
 const job = resume.experience[0];
+const stats = await areaStats();
+const email = socials.find((s) => s.url.startsWith('mailto:'));
 ---
 <Base>
   <section class="hero wrap">
-    <p class="who">{author.name}<span>{author.role}</span></p>
+    <p class="who">{author.name}<span>{author.role}</span>{author.location && <span>{author.location}</span>}</p>
     <h1>{home.headline}</h1>
     <p class="intro">{home.intro}</p>
-    <Waveform seed={author.name} />
-    <div class="btn-row">
+    <SignalPath />
+    <div class="btn-row cta">
       <a class="btn primary" href="/cv">View my CV</a>
       {socials.map((s) => (
         <a class="btn" href={s.url} rel="me noopener" target={s.url.startsWith('mailto:') ? undefined : '_blank'}><Icon name={s.icon} />{s.label}</a>
@@ -31,18 +34,18 @@ const job = resume.experience[0];
     {home.sections.map((block) => {
       if (block === 'projects' && featured.length) return (
         <section class="section">
-          <div class="section-head"><h2>{sections.projects.title}</h2><a href="/projects">All work ({all.length})</a></div>
+          <div class="section-head"><h2>Selected work</h2><a href="/projects">All {all.length} projects</a></div>
           <ul class="list">{featured.map((p) => <ProjectRow project={p} />)}</ul>
         </section>
       );
-      if (block === 'tutorials' && tutorials.length) return (
+      if (block === 'writing' && writing.length) return (
         <section class="section">
-          <div class="section-head"><h2>{sections.tutorials.title}</h2><a href="/tutorials">All tutorials</a></div>
-          <ul class="list">{tutorials.map((t) => <TutorialRow tutorial={t} />)}</ul>
+          <div class="section-head"><h2>Latest writing</h2><a href="/writing">All writing</a></div>
+          <ul class="list">{writing.map((w) => <WritingRow entry={w} />)}</ul>
         </section>
       );
       if (block === 'experience' && job) return (
-        <section class="section now">
+        <section class="section">
           <div class="section-head"><h2>{home.experience_title}</h2><a href="/cv">Full CV</a></div>
           <div class="job">
             <div>
@@ -53,24 +56,48 @@ const job = resume.experience[0];
           </div>
         </section>
       );
+      if (block === 'areas') return (
+        <section class="section">
+          <div class="section-head"><h2>{sections.areas.title}</h2><a href="/areas">All areas</a></div>
+          <ul class="list area-list">
+            {config.areas.map((a) => (
+              <li><a href={`/areas/${a.id}`} style={`--c: var(--area-${a.id})`}>
+                <AreaTags ids={[a.id]} /><span>{a.intro ?? a.short}</span>
+                <span class="n">{stats.get(a.id)!.projects + stats.get(a.id)!.writing} items</span>
+              </a></li>
+            ))}
+          </ul>
+        </section>
+      );
+      if (block === 'contact') return (
+        <section class="section contact">
+          <h2>{home.contact_title}</h2>
+          {home.contact_text && <p>{home.contact_text}</p>}
+          <div class="btn-row">
+            {email && <a class="btn primary" href={email.url}><Icon name="email" />{email.url.replace('mailto:', '')}</a>}
+            {socials.filter((s) => s !== email).map((s) => <a class="btn" href={s.url} target="_blank" rel="me noopener"><Icon name={s.icon} />{s.label}</a>)}
+          </div>
+        </section>
+      );
     })}
   </div>
 </Base>
 
 <style>
-  .hero { padding-top: clamp(3.5rem, 10vw, 7rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
-  .who { display: flex; flex-wrap: wrap; gap: 0.25rem 0.9rem; margin: 0 0 1.4rem; font-size: 1.05rem; font-weight: 500; }
+  .hero { padding-top: clamp(3rem, 9vw, 6.5rem); padding-bottom: clamp(2rem, 5vw, 3rem); }
+  .who { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0 0 1.5rem; font-family: var(--font-display); font-weight: 500; }
   .who span { color: var(--muted); font-weight: 400; }
-  h1 {
-    font-size: clamp(3rem, 9.5vw, 7.4rem);
-    font-weight: 700; font-stretch: 78%; line-height: 0.95; letter-spacing: -0.035em;
-    max-width: 13ch;
-    background: linear-gradient(100deg, var(--fg) 55%, color-mix(in srgb, var(--accent) 70%, var(--fg)));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .intro { margin: 1.8rem 0 0; max-width: 58ch; font-family: var(--font-prose); font-size: clamp(1.15rem, 2vw, 1.35rem); line-height: 1.6; color: var(--fg-soft); }
-  .list { list-style: none; margin: 0; padding: 0; }
-  .job { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1.5rem 1.6rem; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--ink-raised); }
+  h1 { font-size: clamp(2.7rem, 7.6vw, 6.2rem); font-weight: 700; font-stretch: 78%; line-height: 0.97; letter-spacing: -0.035em; max-width: 16ch; text-wrap: balance; }
+  .intro { margin: 1.75rem 0 0; max-width: 60ch; font-size: clamp(1.1rem, 1.8vw, 1.25rem); line-height: 1.6; color: var(--fg-soft); }
+  .cta { margin-top: 2rem; }
+  .job { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding: 1.5rem 1.6rem; border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--surface); }
   .job h3 { font-size: 1.3rem; }
   .when { margin: 0.35rem 0 0; color: var(--muted); }
+  .area-list li { border-top: 1px solid var(--line); }
+  .area-list a { display: grid; grid-template-columns: 14rem 1fr auto; gap: 1.5rem; padding: 1.2rem 0; text-decoration: none; color: var(--fg-soft); }
+  .area-list .n { color: var(--muted); font-size: 0.9rem; }
+  .contact { text-align: left; border-top: 1px solid var(--line); }
+  .contact h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-stretch: 85%; max-width: 20ch; }
+  .contact p { color: var(--fg-soft); max-width: 52ch; margin: 1rem 0 1.75rem; font-size: 1.1rem; }
+  @media (max-width: 44rem) { .area-list a { grid-template-columns: 1fr; gap: 0.4rem; } }
 </style>

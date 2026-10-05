@@ -1,25 +1,25 @@
 # ─────────────────────────────────────────────────────────────
-#  Site settings — edit this file to change text, links and menu.
-#  You never need to touch the code for these.
+#  Site settings. Edit this file to change text, links, menu,
+#  areas, fonts and colours. You never need to touch the code.
 # ─────────────────────────────────────────────────────────────
 
 site:
   url: https://ard9.github.io          # your live address
   title: Armin Rahimi
-  description: AI engineer working on speech recognition, text-to-speech, wake-word detection and LLM systems.
-  repo: ard9/Ard9.github.io            # used for "Open in Colab" and "View source" links
+  description: Machine learning engineer building LLM agents, speech systems and the MLOps infrastructure that runs them.
+  repo: ard9/Ard9.github.io            # used for "Open in Colab" and "View on GitHub" links
   branch: main
   language: en
 
 author:
   name: Armin Rahimi
-  role: AI Engineer, Speech & LLM Systems
+  role: Machine Learning & AI Engineer
   location: Tehran, Iran
   photo: /images/profile.jpg
   email: rahimi.ai@ut.ac.ir
 
 # Links shown in the hero, footer and CV.
-# Available icons: github, linkedin, email, x, scholar, website, telegram, youtube, kaggle, huggingface
+# Icons: github, linkedin, email, x, scholar, website, telegram, youtube, kaggle, huggingface
 socials:
   - label: GitHub
     url: https://github.com/ard9
@@ -31,57 +31,120 @@ socials:
     url: mailto:rahimi.ai@ut.ac.ir
     icon: email
 
+# ── Areas ────────────────────────────────────────────────────
+# The main "shelves" of the site. Every project and article says which
+# area(s) it belongs to with   areas: [llm-agents, ops]
+# Each area gets its own page at /areas/<id> and its own colour.
+#   id       short name used in your files (letters, numbers, dashes)
+#   visual   which part of the home-page animation it lights up:
+#            patches (images), wave (audio), graph (agents), rail (infrastructure)
+areas:
+  - id: llm-agents
+    name: LLMs & Agents
+    short: RAG, multi-agent systems, fine-tuning
+    intro: >-
+      Language models that do real work: retrieval-augmented generation over company
+      documents, multi-agent systems that check each other's output, and LoRA/QLoRA
+      fine-tuning for domain tasks.
+    visual: graph
+    color: { dark: "#B39CFF", light: "#6541D6" }
+  - id: ops
+    name: LLMOps & MLOps
+    short: Serving, GPU infrastructure, monitoring
+    intro: >-
+      Everything between a trained model and a reliable product: TensorRT, Triton and
+      vLLM on H100s, KVM with GPU passthrough, queues, streaming APIs, experiment
+      tracking and observability.
+    visual: rail
+    color: { dark: "#4FD6BE", light: "#0A7F6B" }
+  - id: speech-audio
+    name: Speech & Audio
+    short: ASR, TTS, wake word, audio LLMs
+    intro: >-
+      Systems that listen and speak: streaming ASR trained on tens of thousands of hours
+      of Persian, bilingual TTS, on-device wake-word detection and audio language models.
+    visual: wave
+    color: { dark: "#FF9470", light: "#C2410C" }
+  - id: applied-ml
+    name: Applied ML
+    short: Computer vision, medical imaging and more
+    intro: >-
+      Machine learning outside of language and speech, including deep learning for
+      medical imaging.
+    visual: patches
+    color: { dark: "#6FB9FF", light: "#1F62C7" }
+
 # Top menu. Add, remove or reorder freely.
 # Any page you put in content/pages/ can be linked here, e.g. /about
 nav:
   - label: Work
     href: /projects
-  - label: Tutorials
-    href: /tutorials
+  - label: Writing
+    href: /writing
+  - label: Areas
+    href: /areas
   - label: CV
     href: /cv
 
 home:
-  headline: I build machines that listen and speak.
+  headline: I build ML systems, from raw audio to autonomous agents.
   intro: >-
-    I'm an AI engineer focused on production speech systems: ASR trained on tens of
-    thousands of hours of Persian audio, bilingual TTS, on-device wake-word detection,
-    and the GPU infrastructure that serves them. This is where I keep my work, my files
-    and the tutorials I write along the way.
-  # Which blocks appear on the home page, in this order: projects, tutorials, experience
-  sections: [projects, tutorials, experience]
-  projects_count: 4        # how many featured projects to show
-  tutorials_count: 4       # how many recent tutorials to show
-  experience_title: Latest role   # heading above the job preview (first job in resume.yaml)
+    I'm a machine learning engineer working across LLM agents, speech and audio models,
+    and the MLOps infrastructure that takes them to production. This site collects my
+    projects, files and the things I write along the way.
+  # Blocks on the home page, in this order: projects, writing, experience, contact, areas
+  # (the areas already appear under the hero animation; "areas" adds a longer list)
+  sections: [projects, writing, experience, contact]
+  projects_count: 5
+  writing_count: 4
+  experience_title: Latest role
+  contact_title: Working on something similar?
+  contact_text: I'm happy to talk about ML engineering roles, collaborations and questions about anything on this site.
 
 sections:
   projects:
     title: Work & files
-    intro: Projects I've built, with the code, models, papers and files that go with them.
-  tutorials:
-    title: Tutorials
-    intro: Practical notes on speech AI, model training and deployment. Many come with a notebook you can run in Colab.
+    intro: Projects I've built, with the code, results and files that go with them.
+  writing:
+    title: Writing
+    intro: Tutorials and notes on LLMs, MLOps and speech. Many come with a notebook you can run in Colab.
+  areas:
+    title: Areas
+    intro: The fields I work in. Each one collects the related projects, writing and skills.
   cv:
     title: Curriculum vitae
 
 footer:
   note: Built with Astro. All content lives in plain text files on GitHub.
 
-# Fonts. Just write a font name.
-#  • Built in (no setup): Bricolage Grotesque, Newsreader, JetBrains Mono
-#  • Any other name is loaded from Google Fonts. Copy the exact name from fonts.google.com
-#  • Optional detail: choose weights, or italic for the prose font:
-#      prose:
+# ── Fonts ────────────────────────────────────────────────────
+#  Built in (no setup): Bricolage Grotesque, Instrument Sans, JetBrains Mono
+#  Any other name is loaded from Google Fonts. Copy the exact name from fonts.google.com
+#  Optional detail:
+#      body:
 #        family: Lora
 #        weights: "400;600"      # or a range for variable fonts, e.g. "300..700"
 #        italic: true
-#    If a Google font has only one weight (e.g. Bebas Neue), set weights: "400"
+#  If a Google font has only one weight (e.g. Bebas Neue), set weights: "400"
 fonts:
-  display: Bricolage Grotesque   # headings, menu, buttons, labels
-  prose: Newsreader              # long text: tutorials, intro, CV summary
+  display: Bricolage Grotesque   # headings, menu, buttons
+  body: Instrument Sans          # paragraphs and articles
   code: JetBrains Mono           # code blocks
 
-# Theme colours. Change these to re-tint the whole site.
+# ── Colours ──────────────────────────────────────────────────
+# Visitors can switch between dark and light with the button in the header.
+# default: dark, light, or system (follow the visitor's device)
 theme:
-  accent: "#FBB061"
-  accent_2: "#E0507A"
+  default: system
+  dark:
+    background: "#10131B"
+    surface: "#171B26"
+    line: "#272D3C"
+    text: "#E8EBF2"
+    muted: "#8C94A7"
+  light:
+    background: "#F4F5F8"
+    surface: "#FFFFFF"
+    line: "#DCE0E8"
+    text: "#141823"
+    muted: "#596173"

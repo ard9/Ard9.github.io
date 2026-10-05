@@ -1,141 +1,137 @@
-/* ───────────── Tokens ─────────────
-   Palette is taken from the "magma" colormap used in spectrograms:
-   deep violet-black → rose → amber. Accent colours come from config/site.yaml. */
+/* Colours and fonts are generated from config/site.yaml (see src/lib/theme.ts).
+   This file only uses them. Chrome stays neutral; colour is reserved for areas. */
 :root {
-  --ink: #130F1D;          /* page */
-  --ink-raised: #1B1628;   /* panels, code */
-  --ink-sunk: #0F0C17;
-  --line: #2C2540;
-  --line-strong: #3E3558;
-  --fg: #EEE8F6;
-  --fg-soft: #C9C0DA;
-  --muted: #968DAB;
-  --accent: #FBB061;
-  --accent-2: #E0507A;
-
-  --font-display: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
-  --font-prose: 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
-  --font-code: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
-
-  --measure: 68ch;
-  --wrap: 72rem;
+  --measure: 70ch;
+  --wrap: 74rem;
   --gutter: clamp(1.25rem, 4vw, 2.5rem);
-  --radius-s: 6px;
+  --radius-s: 7px;
   --radius-m: 14px;
-
-  color-scheme: dark;
+  --head-h: 4rem;
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 *, *::before, *::after { box-sizing: inherit; }
-html { scroll-padding-top: calc(5rem + env(safe-area-inset-top, 0px)); -webkit-text-size-adjust: 100%; }
+html { scroll-padding-top: calc(var(--head-h) + 1.5rem + env(safe-area-inset-top, 0px)); -webkit-text-size-adjust: 100%; }
 
 body {
-  margin: 0;
-  background: var(--ink);
-  color: var(--fg);
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  line-height: 1.55;
-  font-optical-sizing: auto;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  min-height: 100vh; display: flex; flex-direction: column;
+  transition: background-color .25s ease, color .25s ease;
 }
 main { flex: 1; }
-
 img, video, svg { max-width: 100%; height: auto; }
-a { color: inherit; text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
-a:hover { color: var(--accent); }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
-::selection { background: color-mix(in srgb, var(--accent-2) 45%, transparent); color: #fff; }
+a { color: inherit; text-decoration-color: var(--line-strong); text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; border-radius: 3px; }
+::selection { background: color-mix(in srgb, var(--area-llm-agents, #888) 35%, transparent); }
 
 h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
-
 .wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip:focus { position: fixed; top: 1rem; left: 1rem; z-index: 99; width: auto; height: auto; clip: auto; padding: .6rem 1rem; background: var(--fg); color: var(--bg); border-radius: var(--radius-s); }
 
-/* ───────────── Page header (inner pages) ───────────── */
+/* ── Page header ── */
 .page-head { padding-block: clamp(3rem, 8vw, 5.5rem) clamp(2rem, 5vw, 3rem); border-bottom: 1px solid var(--line); }
-.page-head h1 { font-size: clamp(2.4rem, 6vw, 4.25rem); font-weight: 650; font-stretch: 85%; max-width: 18ch; }
-.page-head p { color: var(--fg-soft); max-width: 56ch; margin: 1.1rem 0 0; font-size: 1.15rem; }
-.crumb { display: inline-block; color: var(--muted); text-decoration: none; margin-bottom: 1.5rem; font-size: 0.95rem; }
-.crumb:hover { color: var(--accent); }
+.page-head h1 { font-size: clamp(2.4rem, 6vw, 4.25rem); font-weight: 650; font-stretch: 85%; max-width: 20ch; letter-spacing: -0.03em; }
+.page-head > p, .page-head .lede { color: var(--fg-soft); max-width: 58ch; margin: 1.1rem 0 0; font-size: 1.15rem; }
+.crumb { display: inline-flex; align-items: center; gap: .45rem; color: var(--muted); text-decoration: none; margin-bottom: 1.5rem; font-size: 0.95rem; }
+.crumb:hover { color: var(--fg); }
 
-/* ───────────── Tags & buttons ───────────── */
+/* ── Area marker: <span class="area" style="--c: var(--area-x)">Name</span> ── */
+.area { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; font-weight: 500; color: var(--fg-soft); white-space: nowrap; text-decoration: none; }
+.area::before { content: ''; width: 0.6rem; height: 0.6rem; border-radius: 2px; background: var(--c); flex: none; }
+a.area:hover { color: var(--c); }
+.areas-inline { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; list-style: none; margin: 0; padding: 0; }
+
+/* ── Tags & buttons ── */
 .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 0; }
-.tag { font-size: 0.8rem; color: var(--fg-soft); border: 1px solid var(--line-strong); border-radius: 999px; padding: 0.15rem 0.6rem; white-space: nowrap; }
+.tag { font-size: 0.8rem; color: var(--fg-soft); background: color-mix(in srgb, var(--fg) 6%, transparent); border-radius: 5px; padding: 0.18rem 0.55rem; white-space: nowrap; }
 
 .btn {
   display: inline-flex; align-items: center; gap: 0.55rem;
   font: 500 0.95rem/1 var(--font-display);
   padding: 0.75rem 1.1rem; border-radius: var(--radius-s);
-  border: 1px solid var(--line-strong); color: var(--fg); background: var(--ink-raised);
-  text-decoration: none; cursor: pointer; transition: border-color .15s, color .15s, background .15s;
+  border: 1px solid var(--line-strong); color: var(--fg); background: var(--surface);
+  text-decoration: none; cursor: pointer; transition: border-color .15s, background .15s, color .15s;
 }
-.btn:hover { border-color: var(--accent); color: var(--accent); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--ink); }
-.btn.primary:hover { background: color-mix(in srgb, var(--accent) 85%, white); color: var(--ink); }
+.btn:hover { border-color: var(--fg); }
+.btn.primary { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.btn.primary:hover { background: var(--fg-soft); border-color: var(--fg-soft); }
 .btn svg { width: 1.05em; height: 1.05em; flex: none; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 
-/* ───────────── Section title row ───────────── */
+/* ── Filter chips ── */
+.chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.chip {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font: 500 0.9rem/1 var(--font-display); color: var(--fg-soft);
+  background: transparent; border: 1px solid var(--line-strong); border-radius: 999px;
+  padding: 0.5rem 0.85rem; cursor: pointer; transition: all .15s;
+}
+.chip[data-c]::before { content: ''; width: .55rem; height: .55rem; border-radius: 2px; background: var(--c); }
+.chip span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.chip:hover { border-color: var(--fg-soft); color: var(--fg); }
+.chip[aria-pressed='true'] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.chip[aria-pressed='true'] span { color: color-mix(in srgb, var(--bg) 65%, transparent); }
+
+/* ── Sections ── */
 .section { padding-block: clamp(3rem, 7vw, 5rem); }
-.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
 .section-head h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-stretch: 90%; }
 .section-head a { color: var(--muted); font-size: 0.95rem; text-decoration: none; }
-.section-head a:hover { color: var(--accent); }
+.section-head a:hover { color: var(--fg); }
+.list { list-style: none; margin: 0; padding: 0; }
+.empty { color: var(--muted); padding: 1.5rem 0; margin: 0; }
 
-/* ───────────── Long-form prose ───────────── */
-.prose { font-family: var(--font-prose); font-size: 1.22rem; line-height: 1.7; color: var(--fg-soft); max-width: var(--measure); }
+/* ── Long-form prose ── */
+.prose { font-size: 1.1rem; line-height: 1.75; color: var(--fg-soft); max-width: var(--measure); }
 .prose > * + * { margin-top: 1.15em; }
 .prose > :first-child { margin-top: 0; }
 .prose p, .prose ul, .prose ol { margin-bottom: 0; }
 .prose h2, .prose h3, .prose h4 { color: var(--fg); margin-top: 2.2em; }
-.prose h2 { font-size: 1.75rem; }
-.prose h3 { font-size: 1.35rem; }
+.prose h2 { font-size: 1.7rem; }
+.prose h3 { font-size: 1.3rem; }
 .prose h2 + *, .prose h3 + * { margin-top: 0.7em; }
 .prose strong { color: var(--fg); font-weight: 600; }
 .prose a { color: var(--fg); }
-.prose a:hover { color: var(--accent); }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li + li { margin-top: 0.35em; }
-.prose li::marker { color: var(--accent); }
-.prose blockquote { margin-inline: 0; padding-left: 1.2em; border-left: 2px solid var(--accent-2); color: var(--fg-soft); font-style: italic; }
+.prose li::marker { color: var(--muted); }
+.prose blockquote { margin-inline: 0; padding-left: 1.2em; border-left: 2px solid var(--line-strong); font-style: italic; }
 .prose hr { border: 0; border-top: 1px solid var(--line); margin-block: 2.5em; }
 .prose img { border-radius: var(--radius-m); border: 1px solid var(--line); }
 .prose figure { margin-inline: 0; }
-.prose figcaption { font-family: var(--font-display); font-size: 0.9rem; color: var(--muted); margin-top: 0.6rem; }
-.prose table { width: 100%; border-collapse: collapse; font-family: var(--font-display); font-size: 0.95rem; display: block; overflow-x: auto; }
+.prose figcaption { font-size: 0.9rem; color: var(--muted); margin-top: 0.6rem; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.95rem; display: block; overflow-x: auto; }
 .prose th, .prose td { text-align: left; padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--line); }
 .prose th { color: var(--fg); font-weight: 600; }
-.prose :not(pre) > code { font-family: var(--font-code); font-size: 0.82em; background: var(--ink-raised); border: 1px solid var(--line); border-radius: 4px; padding: 0.1em 0.35em; color: var(--fg); }
+.prose :not(pre) > code { font-family: var(--font-code); font-size: 0.84em; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 0.1em 0.35em; color: var(--fg); }
 .prose pre {
   font-family: var(--font-code); font-size: 0.86rem; line-height: 1.65;
-  background: var(--ink-sunk) !important; border: 1px solid var(--line); border-radius: var(--radius-m);
+  background: var(--sunk) !important; border: 1px solid var(--line); border-radius: var(--radius-m);
   padding: 1.1rem 1.25rem; overflow-x: auto; max-width: calc(100vw - 2 * var(--gutter));
 }
 .prose .katex-display { overflow-x: auto; overflow-y: hidden; padding-block: 0.3em; }
-.prose .katex { font-size: 1.05em; }
 .prose audio { width: 100%; }
 
-/* ───────────── Footer ───────────── */
+/* Code colours follow the theme (Shiki dual themes) */
+.astro-code, .astro-code span { color: var(--shiki-dark); }
+:root[data-theme='light'] .astro-code, :root[data-theme='light'] .astro-code span { color: var(--shiki-light); }
+
+/* ── Footer ── */
 .site-foot { border-top: 1px solid var(--line); padding-block: 2.5rem; color: var(--muted); font-size: 0.92rem; margin-top: 3rem; }
 .site-foot .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 .site-foot p { margin: 0; }
 
+@media (max-width: 40rem) { .prose { font-size: 1.05rem; line-height: 1.7; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-
 @media print {
-  :root { --ink: #fff; --ink-raised: #fff; --fg: #111; --fg-soft: #222; --muted: #555; --line: #ccc; --line-strong: #bbb; --accent: #111; }
+  :root { --bg: #fff !important; --surface: #fff !important; --fg: #111 !important; --fg-soft: #222 !important; --muted: #555 !important; --line: #ccc !important; }
   .site-head, .site-foot, .no-print { display: none !important; }
   body { font-size: 10.5pt; }
-}
-
-@media (max-width: 40rem) {
-  .prose { font-size: 1.12rem; line-height: 1.65; }
 }

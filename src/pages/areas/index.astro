@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import { config } from '../../lib/config';
+import { areaStats } from '../../lib/utils';
+const stats = await areaStats();
+const { title, intro } = config.sections.areas;
+const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? '' : 's'}`;
+---
+<Base title={title} description={intro}>
+  <header class="page-head wrap">
+    <h1>{title}</h1>
+    {intro && <p>{intro}</p>}
+  </header>
+  <ul class="wrap grid">
+    {config.areas.map((a) => {
+      const s = stats.get(a.id)!;
+      return (
+        <li style={`--c: var(--area-${a.id})`}>
+          <a href={`/areas/${a.id}`}>
+            <h2>{a.name}</h2>
+            <p class="intro">{a.intro ?? a.short}</p>
+            {s.tags.length > 0 && <ul class="tags">{s.tags.map((t) => <li class="tag">{t}</li>)}</ul>}
+            <p class="count">{plural(s.projects, 'project')}, {plural(s.writing, 'article')}</p>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</Base>
+<style>
+  .grid { list-style: none; padding: 2.5rem 0 0; margin-block: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .grid a { display: flex; flex-direction: column; gap: 0.9rem; height: 100%; padding: 1.6rem 1.7rem; border-radius: var(--radius-m); text-decoration: none; border: 1px solid var(--line); border-top: 3px solid var(--c); background: var(--surface); transition: border-color .2s; }
+  .grid a:hover { border-color: var(--c); }
+  h2 { font-size: 1.6rem; font-stretch: 90%; }
+  .intro { margin: 0; color: var(--fg-soft); }
+  .count { margin: auto 0 0; color: var(--muted); font-size: 0.9rem; }
+  @media (max-width: 44rem) { .grid { grid-template-columns: 1fr; } }
+</style>

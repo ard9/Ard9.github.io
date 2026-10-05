@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import WritingRow from '../../components/WritingRow.astro';
+import AreaChips from '../../components/AreaChips.astro';
+import { config } from '../../lib/config';
+import { getWriting, TYPE_LABEL } from '../../lib/utils';
+const entries = await getWriting();
+const types = (Object.keys(TYPE_LABEL) as (keyof typeof TYPE_LABEL)[])
+  .map((t) => ({ t, n: entries.filter((e) => e.data.type === t).length })).filter((x) => x.n > 0);
+const { title, intro } = config.sections.writing;
+---
+<Base title={title} description={intro}>
+  <header class="page-head wrap">
+    <h1>{title}</h1>
+    {intro && <p>{intro}</p>}
+  </header>
+  <section class="wrap body">
+    <div class="filters">
+      <AreaChips entries={entries} />
+      {types.length > 1 && (
+        <div class="chips" data-filter="type" role="group" aria-label="Filter by type">
+          <button class="chip" type="button" data-value="" aria-pressed="true">Any type</button>
+          {types.map(({ t, n }) => <button class="chip" type="button" data-value={t} aria-pressed="false">{TYPE_LABEL[t]}s <span>{n}</span></button>)}
+        </div>
+      )}
+    </div>
+    {entries.length
+      ? <ul class="list">{entries.map((e) => <WritingRow entry={e} />)}</ul>
+      : <p class="empty">Nothing here yet. Add a Markdown file to <code>content/writing/</code> and it will appear here.</p>}
+    <p class="empty" data-empty hidden>Nothing matches these filters yet.</p>
+  </section>
+</Base>
+<script>import { setupFilters } from '../../scripts/filter'; setupFilters();</script>
+<style>
+  .body { padding-block: 2rem 1rem; }
+  .filters { display: grid; gap: 0.6rem; margin-bottom: 1.75rem; }
+</style>

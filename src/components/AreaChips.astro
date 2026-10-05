@@ -1,0 +1,13 @@
+---
+// Filter chips for areas. Counts come from the entries passed in.
+import { config } from '../lib/config';
+interface Props { entries: { data: { areas: string[] } }[] }
+const { entries } = Astro.props;
+const used = config.areas.map((a) => ({ ...a, n: entries.filter((e) => e.data.areas.includes(a.id)).length })).filter((a) => a.n > 0);
+---
+{used.length > 1 && (
+  <div class="chips" data-filter="area" role="group" aria-label="Filter by area">
+    <button class="chip" type="button" data-value="" aria-pressed="true">All <span>{entries.length}</span></button>
+    {used.map((a) => <button class="chip" type="button" data-value={a.id} data-c style={`--c: var(--area-${a.id})`} aria-pressed="false">{a.name} <span>{a.n}</span></button>)}
+  </div>
+)}

@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, readingTime, TYPE_LABEL } from '../lib/utils';
+import AreaTags from './AreaTags.astro';
+import Icon from './Icon.astro';
+interface Props { entry: CollectionEntry<'writing'> }
+const { entry } = Astro.props;
+const { title, description, date, type, areas, notebook, series, part } = entry.data;
+---
+<li class="row" data-item data-area={areas.join('|')} data-type={type}>
+  <a href={`/writing/${entry.id}`}>
+    <div class="body">
+      <p class="kicker">{TYPE_LABEL[type]}{series && <span>{series}{part && `, part ${part}`}</span>}</p>
+      <h3>{title}</h3>
+      <p class="desc">{description}</p>
+    </div>
+    <div class="meta">
+      <AreaTags ids={areas} />
+      <p>
+        <time datetime={date.toISOString()}>{formatDate(date, 'short')}</time>
+        <span>{readingTime(entry.body)} min read</span>
+        {notebook && <span class="nb"><Icon name="notebook" />Notebook</span>}
+      </p>
+    </div>
+  </a>
+</li>
+<style>
+  .row { border-top: 1px solid var(--line); }
+  .row:last-child { border-bottom: 1px solid var(--line); }
+  a { display: grid; grid-template-columns: minmax(0, 1fr) 13rem; gap: 2rem; padding: 1.4rem 0.75rem; margin-inline: -0.75rem; text-decoration: none; border-radius: var(--radius-s); transition: background .2s; }
+  a:hover { background: var(--surface); }
+  a:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  .kicker { margin: 0 0 0.35rem; font-size: 0.85rem; color: var(--muted); display: flex; gap: 0.75rem; }
+  .kicker span { color: var(--fg-soft); }
+  h3 { font-size: 1.25rem; font-weight: 600; }
+  .desc { margin: 0.4rem 0 0; color: var(--fg-soft); max-width: 62ch; }
+  .meta { display: grid; gap: 0.6rem; align-content: start; padding-top: 0.2rem; }
+  .meta :global(.areas-inline) { flex-direction: column; gap: 0.3rem; }
+  .meta p { margin: 0; display: flex; flex-wrap: wrap; gap: 0.15rem 0.9rem; font-size: 0.85rem; color: var(--muted); }
+  .nb { display: inline-flex; align-items: center; gap: 0.3rem; }
+  .nb :global(svg) { width: 14px; height: 14px; }
+  @media (max-width: 44rem) {
+    a { grid-template-columns: 1fr; gap: 0.75rem; }
+    .meta :global(.areas-inline) { flex-direction: row; gap: 0.3rem 1rem; }
+  }
+</style>

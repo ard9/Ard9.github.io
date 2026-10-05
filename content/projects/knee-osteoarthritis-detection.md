@@ -2,7 +2,8 @@
 title: Knee osteoarthritis detection
 description: End-to-end deep learning pipeline for automated knee X-ray analysis using CLAHE preprocessing, feature extraction and classification.
 date: 2023-06-01
-tags: [Medical imaging, Deep learning]
+areas: [applied-ml]
+tags: [Medical imaging, CLAHE, Classification]
 ---
 
 ## Overview

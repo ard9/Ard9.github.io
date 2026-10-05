@@ -2,7 +2,15 @@
 title: On-device wake-word detection
 description: A low-latency neural wake-word engine with few-shot custom phrases, shipped to Android in the Zigap app.
 date: 2025-10-01
-tags: [Speech, Edge AI, TFLite, ONNX]
+areas: [speech-audio]
+tags: [Wake word, Few-shot learning, TFLite, ONNX, Android]
+highlights:
+  - value: 5M+
+    label: training samples
+  - value: 4,300+
+    label: natural speakers
+  - value: Few-shot
+    label: custom trigger phrases
 featured: true
 status: Shipped
 ---

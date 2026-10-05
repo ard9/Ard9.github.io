@@ -4,7 +4,11 @@
 title: Project title
 description: One or two sentences shown in lists and search results.
 date: 2026-01-15
-tags: [Speech, PyTorch]
+areas: [speech-audio]      # one or more area ids from config/site.yaml
+tags: [PyTorch, ONNX]      # free-form details: tools, models, methods
+highlights:                # optional: up to 4 key results, shown large on the project page
+  - value: 40%
+    label: lower latency
 featured: false            # true = shown on the home page first
 status: In progress        # optional short label, e.g. Shipped, Research, Archived
 cover: /images/my-cover.jpg   # optional, put the image in public/images/

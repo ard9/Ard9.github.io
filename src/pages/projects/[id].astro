@@ -2,6 +2,7 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import FileList from '../../components/FileList.astro';
+import AreaTags from '../../components/AreaTags.astro';
 import Icon from '../../components/Icon.astro';
 import { config } from '../../lib/config';
 import { getProjects, formatDate } from '../../lib/utils';
@@ -11,53 +12,63 @@ export async function getStaticPaths() {
 }
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, description, date, tags, cover, links, files, status } = project.data;
+const { title, description, date, tags, cover, links, files, status, areas, highlights } = project.data;
 ---
 <Base title={title} description={description} image={cover} type="article">
+  <div data-pagefind-body>
   <header class="page-head wrap">
-    <a class="crumb" href="/projects">{config.sections.projects.title}</a>
+    <a class="crumb" data-pagefind-ignore href="/projects"><Icon name="arrowLeft" />{config.sections.projects.title}</a>
+    <AreaTags ids={areas} link />
     <h1>{title}</h1>
     <p>{description}</p>
-    <div class="meta">
-      <time datetime={date.toISOString()}>{formatDate(date, 'short')}</time>
-      {status && <span class="status">{status}</span>}
-      {tags.length > 0 && <ul class="tags">{tags.map((t) => <li class="tag">{t}</li>)}</ul>}
-    </div>
+    <p class="meta"><time datetime={date.toISOString()}>{formatDate(date, 'short')}</time>{status && <span>{status}</span>}</p>
   </header>
+
+  {highlights.length > 0 && (
+    <div class="wrap">
+      <dl class="highlights" style={`--c: var(--area-${areas[0]})`}>
+        {highlights.map((h) => <div><dt>{h.label}</dt><dd>{h.value}</dd></div>)}
+      </dl>
+    </div>
+  )}
 
   <div class="wrap layout">
     <article class="prose">
       {cover && <img class="cover" src={cover} alt="" />}
       <Content />
     </article>
-    {(links.length > 0 || files.length > 0) && (
-      <aside>
-        {links.length > 0 && (
-          <div class="block">
-            <h2>Links</h2>
-            <ul class="links">
-              {links.map((l) => <li><a class="btn" href={l.url} target="_blank" rel="noopener"><Icon name={/github\.com/.test(l.url) ? 'github' : 'external'} />{l.label}</a></li>)}
-            </ul>
-          </div>
-        )}
-        {files.length > 0 && (
-          <div class="block">
-            <h2>Files</h2>
-            <FileList files={files} />
-          </div>
-        )}
-      </aside>
-    )}
+    <aside data-pagefind-ignore>
+      {links.length > 0 && (
+        <div class="block">
+          <h2>Links</h2>
+          <ul class="links">
+            {links.map((l) => <li><a class="btn" href={l.url} target="_blank" rel="noopener"><Icon name={/github\.com/.test(l.url) ? 'github' : 'external'} />{l.label}</a></li>)}
+          </ul>
+        </div>
+      )}
+      {files.length > 0 && (<div class="block"><h2>Files</h2><FileList files={files} /></div>)}
+      {tags.length > 0 && (<div class="block"><h2>Stack</h2><ul class="tags">{tags.map((t) => <li class="tag">{t}</li>)}</ul></div>)}
+    </aside>
+  </div>
   </div>
 </Base>
 
 <style>
-  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-top: 1.6rem; color: var(--muted); }
-  .status { color: var(--accent-2); }
-  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: clamp(2rem, 5vw, 4.5rem); padding-top: clamp(2rem, 5vw, 3rem); align-items: start; }
-  aside { position: sticky; top: 5.5rem; display: grid; gap: 2rem; }
-  .block h2 { font-size: 1rem; color: var(--fg); margin-bottom: 0.8rem; }
+  .page-head :global(.areas-inline) { margin-bottom: 1.1rem; }
+  .meta { display: flex; gap: 1rem; color: var(--muted) !important; font-size: 0.95rem !important; margin-top: 1.4rem !important; }
+  .highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); margin: 0; border-bottom: 1px solid var(--line); }
+  .highlights div { padding: 1.5rem 1.5rem 1.5rem 0; display: flex; flex-direction: column-reverse; gap: 0.3rem; }
+  .highlights div + div { padding-left: 1.5rem; border-left: 1px solid var(--line); }
+  .highlights dd { margin: 0; font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 650; font-stretch: 85%; letter-spacing: -0.02em; color: var(--c); }
+  .highlights dt { color: var(--fg-soft); font-size: 0.92rem; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: clamp(2rem, 5vw, 4.5rem); padding-top: clamp(2rem, 5vw, 3rem); align-items: start; }
+  aside { position: sticky; top: calc(var(--head-h) + 1.5rem); display: grid; gap: 2rem; }
+  .block h2 { font-size: 0.95rem; color: var(--fg); margin-bottom: 0.8rem; }
   .links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .cover { width: 100%; margin-bottom: 1rem; }
-  @media (max-width: 56rem) { .layout { grid-template-columns: 1fr; } aside { position: static; order: -1; } }
+  @media (max-width: 56rem) {
+    .layout { grid-template-columns: 1fr; } aside { position: static; }
+    .highlights div + div { padding-left: 0; border-left: 0; }
+    .highlights div { border-top: 1px solid var(--line); padding-block: 1rem; }
+  }
 </style>

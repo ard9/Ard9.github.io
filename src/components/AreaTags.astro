@@ -1,0 +1,13 @@
+---
+import { areaById } from '../lib/config';
+interface Props { ids: string[]; link?: boolean }
+const { ids, link = false } = Astro.props;
+---
+<ul class="areas-inline">
+  {ids.map((id) => {
+    const a = areaById.get(id)!;
+    return <li>{link
+      ? <a class="area" href={`/areas/${id}`} style={`--c: var(--area-${id})`}>{a.name}</a>
+      : <span class="area" style={`--c: var(--area-${id})`}>{a.name}</span>}</li>;
+  })}
+</ul>

@@ -1,0 +1,64 @@
+---
+// Site search powered by Pagefind. The index is built after `astro build`
+// (see "build" in package.json), so search works on the live site and in `npm run preview`.
+---
+<dialog id="search-dialog" aria-label="Search the site">
+  <div class="panel">
+    <div class="top">
+      <p>Search projects and writing</p>
+      <button type="button" class="close" aria-label="Close search">Esc</button>
+    </div>
+    <div id="search"></div>
+    <p class="unavailable" hidden>Search is available on the built site. Run <code>npm run build</code> and <code>npm run preview</code> to try it locally.</p>
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.getElementById('search-dialog') as HTMLDialogElement;
+  let loaded = false;
+
+  async function load() {
+    if (loaded) return; loaded = true;
+    try {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet'; css.href = '/pagefind/pagefind-ui.css';
+      document.head.append(css);
+      await new Promise<void>((ok, fail) => {
+        const s = document.createElement('script');
+        s.src = '/pagefind/pagefind-ui.js'; s.onload = () => ok(); s.onerror = () => fail();
+        document.head.append(s);
+      });
+      // @ts-ignore provided by pagefind-ui.js
+      new PagefindUI({ element: '#search', showSubResults: true, showImages: false, autofocus: true, resetStyles: false });
+    } catch {
+      dialog.querySelector('.unavailable')!.removeAttribute('hidden');
+    }
+  }
+  async function open() { await load(); dialog.showModal(); dialog.querySelector<HTMLInputElement>('input')?.focus(); }
+
+  document.querySelectorAll('[data-open-search]').forEach((b) => b.addEventListener('click', open));
+  dialog.querySelector('.close')!.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  document.addEventListener('keydown', (e) => {
+    const typing = /INPUT|TEXTAREA|SELECT/.test((e.target as HTMLElement).tagName);
+    if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !typing)) { e.preventDefault(); open(); }
+  });
+</script>
+
+<style>
+  dialog { width: min(42rem, 100% - 2rem); max-height: min(80vh, 44rem); margin: 10vh auto auto; padding: 0; border: 1px solid var(--line-strong); border-radius: var(--radius-m); background: var(--bg); color: var(--fg); box-shadow: 0 24px 80px -20px rgb(0 0 0 / .5); }
+  dialog::backdrop { background: color-mix(in srgb, var(--bg) 55%, transparent); backdrop-filter: blur(4px); }
+  .panel { padding: 1rem 1.1rem 1.25rem; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+  .top p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+  .close { font: 500 0.75rem/1 var(--font-body); color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 0.3rem 0.45rem; cursor: pointer; }
+  .unavailable { color: var(--muted); font-size: 0.95rem; }
+  #search {
+    --pagefind-ui-scale: 0.9; --pagefind-ui-primary: var(--fg); --pagefind-ui-text: var(--fg);
+    --pagefind-ui-background: var(--surface); --pagefind-ui-border: var(--line-strong); --pagefind-ui-tag: var(--sunk);
+    --pagefind-ui-border-width: 1px; --pagefind-ui-border-radius: 7px; --pagefind-ui-font: var(--font-body);
+  }
+  #search :global(.pagefind-ui__result-link) { color: var(--fg); }
+  #search :global(.pagefind-ui__result-excerpt) { color: var(--fg-soft); }
+  #search :global(mark) { background: color-mix(in srgb, var(--area-llm-agents, #999) 35%, transparent); color: inherit; }
+</style>

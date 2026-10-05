@@ -6,6 +6,7 @@ const { author, socials, sections } = config;
 const r = resume;
 ---
 <Base title={sections.cv.title} description={r.summary}>
+  <div data-pagefind-body>
   <header class="page-head wrap cv-head">
     <div class="id">
       {author.photo && <img src={author.photo} alt={author.name} width="128" height="128" />}
@@ -57,7 +58,7 @@ const r = resume;
       <section class="block">
         <h2>Skills</h2>
         <dl class="skills">
-          {r.skills.map((s) => (<div><dt>{s.group}</dt><dd><ul class="tags">{s.items.map((i) => <li class="tag">{i}</li>)}</ul></dd></div>))}
+          {r.skills.map((s) => (<div><dt>{s.area ? <a class="area" href={`/areas/${s.area}`} style={`--c: var(--area-${s.area})`}>{s.group}</a> : s.group}</dt><dd><ul class="tags">{s.items.map((i) => <li class="tag">{i}</li>)}</ul></dd></div>))}
         </dl>
       </section>
     )}
@@ -100,6 +101,7 @@ const r = resume;
       </section>
     )}
   </div>
+  </div>
 </Base>
 
 <style>
@@ -115,7 +117,7 @@ const r = resume;
   .cv { padding-top: clamp(2rem, 5vw, 3rem); }
   .summary { font-family: var(--font-prose); font-size: clamp(1.2rem, 2vw, 1.4rem); line-height: 1.6; color: var(--fg-soft); max-width: 62ch; margin: 0 0 1rem; }
   .block { padding-top: clamp(2.5rem, 5vw, 3.5rem); }
-  .block > h2 { font-size: 1.05rem; font-weight: 600; color: var(--accent); margin-bottom: 1.5rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--line); }
+  .block > h2 { font-size: 1.05rem; font-weight: 600; color: var(--fg); margin-bottom: 1.5rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--line); }
   h3 { font-size: 1.2rem; font-weight: 600; }
   h4 { font-size: 1rem; font-weight: 600; color: var(--fg); margin-bottom: 0.5rem; }
   .org { margin: 0.25rem 0 0; color: var(--fg-soft); }
@@ -126,15 +128,16 @@ const r = resume;
   .timeline > li + li { margin-top: 2.5rem; }
   .when { color: var(--muted); font-size: 0.95rem; padding-top: 0.2rem; font-variant-numeric: tabular-nums; }
   .what { border-left: 1px solid var(--line-strong); padding-left: 1.75rem; position: relative; }
-  .what::before { content: ''; position: absolute; left: -5px; top: 0.45rem; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--ink); }
+  .what::before { content: ''; position: absolute; left: -5px; top: 0.45rem; width: 9px; height: 9px; border-radius: 50%; background: var(--fg); box-shadow: 0 0 0 4px var(--bg); }
   .group { margin-top: 1.6rem; }
   .points { margin: 0.5rem 0 0; padding-left: 1.1rem; color: var(--fg-soft); max-width: 70ch; }
   .points li + li { margin-top: 0.3rem; }
-  .points li::marker { color: var(--accent-2); }
+  .points li::marker { color: var(--muted); }
 
   .skills { margin: 0; display: grid; gap: 1.1rem; }
   .skills > div { display: grid; grid-template-columns: 11rem 1fr; gap: 2rem; align-items: baseline; }
   .skills dt { color: var(--fg); font-weight: 500; }
+  .skills dt .area { font-size: 1rem; color: var(--fg); }
   .skills dd { margin: 0; }
 
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(2rem, 5vw, 4rem); }

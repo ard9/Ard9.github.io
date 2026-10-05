@@ -1,33 +1,49 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import AreaTags from './AreaTags.astro';
 interface Props { project: CollectionEntry<'projects'>; showCover?: boolean }
 const { project, showCover = false } = Astro.props;
-const { title, description, date, tags, cover, status } = project.data;
+const { title, description, date, tags, cover, status, areas, highlights } = project.data;
+const lead = highlights[0];
 ---
-<li class="row" data-tags={tags.join('|')}>
+<li class="row" data-item data-area={areas.join('|')} data-tag={tags.join('|')}>
   <a href={`/projects/${project.id}`}>
     <time datetime={date.toISOString()}>{date.getFullYear()}</time>
     <div class="body">
-      <h3>{title}{status && <span class="status">{status}</span>}</h3>
+      <h3>{title}</h3>
       <p>{description}</p>
-      {tags.length > 0 && <ul class="tags">{tags.map((t) => <li class="tag">{t}</li>)}</ul>}
+      <div class="foot">
+        {lead && <span class="hl"><b>{lead.value}</b> {lead.label}</span>}
+        {status && <span class="status">{status}</span>}
+        {tags.length > 0 && <ul class="tags">{tags.slice(0, 5).map((t) => <li class="tag">{t}</li>)}</ul>}
+      </div>
     </div>
-    {showCover && cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
+    <div class="side">
+      <AreaTags ids={areas} />
+      {showCover && cover && <img src={cover} alt="" loading="lazy" decoding="async" />}
+    </div>
   </a>
 </li>
 <style>
   .row { border-top: 1px solid var(--line); }
   .row:last-child { border-bottom: 1px solid var(--line); }
-  a { display: grid; grid-template-columns: 5rem 1fr auto; gap: 1.5rem; align-items: start; padding: 1.6rem 0.75rem; margin-inline: -0.75rem; text-decoration: none; border-radius: var(--radius-s); transition: background .2s; }
-  a:hover { background: var(--ink-raised); color: inherit; }
-  a:hover h3 { color: var(--accent); }
+  a { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr) 12rem; gap: 1.5rem; align-items: start; padding: 1.5rem 0.75rem; margin-inline: -0.75rem; text-decoration: none; border-radius: var(--radius-s); transition: background .2s; }
+  a:hover { background: var(--surface); }
   time { color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 0.2rem; }
-  h3 { font-size: 1.35rem; font-weight: 600; transition: color .15s; display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; }
-  .status { font-size: 0.78rem; font-weight: 500; color: var(--accent-2); letter-spacing: 0; }
-  p { margin: 0.45rem 0 0.9rem; color: var(--fg-soft); max-width: 60ch; }
-  img { width: 9rem; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-s); border: 1px solid var(--line); }
-  @media (max-width: 40rem) {
-    a { grid-template-columns: 1fr; gap: 0.35rem; }
-    img { width: 100%; order: -1; margin-bottom: 0.6rem; aspect-ratio: 16/9; }
+  h3 { font-size: 1.3rem; font-weight: 600; }
+  a:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+  p { margin: 0.4rem 0 0.85rem; color: var(--fg-soft); max-width: 62ch; }
+  .foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; }
+  .hl { font-size: 0.88rem; color: var(--fg-soft); }
+  .hl b { font-family: var(--font-display); color: var(--fg); font-weight: 650; }
+  .status { font-size: 0.85rem; color: var(--muted); }
+  .side { display: grid; gap: 0.8rem; justify-items: start; padding-top: 0.3rem; }
+  .side :global(.areas-inline) { flex-direction: column; gap: 0.35rem; }
+  img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius-s); border: 1px solid var(--line); }
+  @media (max-width: 48rem) {
+    a { grid-template-columns: 1fr; gap: 0.4rem; }
+    .side { order: -1; grid-auto-flow: row; }
+    .side :global(.areas-inline) { flex-direction: row; gap: 0.3rem 1rem; }
+    img { aspect-ratio: 16/9; }
   }
 </style>
